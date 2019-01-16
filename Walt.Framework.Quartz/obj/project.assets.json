@@ -12759,11 +12759,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "g:\\project\\aspnetcore\\aspnetcoretest\\Walt.Freamwork\\Walt.Framework.Quartz\\Walt.Framework.Quartz.csproj",
+      "projectUniqueName": "G:\\project\\aspnetcoregithub\\Walt.Framework\\Walt.Framework.Quartz\\Walt.Framework.Quartz.csproj",
       "projectName": "Walt.Framework.Quartz",
-      "projectPath": "g:\\project\\aspnetcore\\aspnetcoretest\\Walt.Freamwork\\Walt.Framework.Quartz\\Walt.Framework.Quartz.csproj",
+      "projectPath": "G:\\project\\aspnetcoregithub\\Walt.Framework\\Walt.Framework.Quartz\\Walt.Framework.Quartz.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "g:\\project\\aspnetcore\\aspnetcoretest\\Walt.Freamwork\\Walt.Framework.Quartz\\obj\\",
+      "outputPath": "G:\\project\\aspnetcoregithub\\Walt.Framework\\Walt.Framework.Quartz\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
