@@ -1,0 +1,14 @@
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Log\obj\Release\netcoreapp2.2\Walt.Framework.Log.csprojAssemblyReference.cache
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Log\obj\Release\netcoreapp2.2\Walt.Framework.Log.csproj.CoreCompileInputs.cache
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Log\obj\Release\netcoreapp2.2\Walt.Framework.Log.AssemblyInfoInputs.cache
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Log\obj\Release\netcoreapp2.2\Walt.Framework.Log.AssemblyInfo.cs
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Log\bin\Release\netcoreapp2.2\Walt.Framework.Log.deps.json
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Log\bin\Release\netcoreapp2.2\Walt.Framework.Log.dll
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Log\bin\Release\netcoreapp2.2\Walt.Framework.Log.pdb
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Log\obj\Release\netcoreapp2.2\Walt.Framework.Log.dll
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Log\obj\Release\netcoreapp2.2\Walt.Framework.Log.pdb
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Log\bin\Release\netcoreapp2.2\Walt.Framework.Service.dll
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Log\bin\Release\netcoreapp2.2\Walt.Framework.Service.pdb
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Log\obj\Release\netcoreapp2.2\Walt.Framework.Log.csproj.CopyComplete
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Log\bin\Release\netcoreapp2.2\Walt.Framework.Configuration.dll
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Log\bin\Release\netcoreapp2.2\Walt.Framework.Configuration.pdb

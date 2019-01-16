@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+   
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\output\</OutputPath>
+     <GenerateAssemblyVersionAttribute>true</GenerateAssemblyVersionAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Confluent.Kafka" Version="0.11.6" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.519" />
+
+ 
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+
+ 
+    <PackageReference Include="ZooKeeperNetEx" Version="3.4.12.1" />
+
+ 
+    <PackageReference Include="ZooKeeperNetEx.Recipes" Version="3.4.12.1" /> 
+  </ItemGroup>
+ 
+
+</Project>

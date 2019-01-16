@@ -1,0 +1,4 @@
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Wlat.Freamwork.Log\obj\Debug\netcoreapp2.1\Wlat.Freamwork.Log.csprojAssemblyReference.cache
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Wlat.Freamwork.Log\obj\Debug\netcoreapp2.1\Wlat.Freamwork.Log.csproj.CoreCompileInputs.cache
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Wlat.Freamwork.Log\obj\Debug\netcoreapp2.1\Wlat.Freamwork.Log.AssemblyInfoInputs.cache
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Wlat.Freamwork.Log\obj\Debug\netcoreapp2.1\Wlat.Freamwork.Log.AssemblyInfo.cs

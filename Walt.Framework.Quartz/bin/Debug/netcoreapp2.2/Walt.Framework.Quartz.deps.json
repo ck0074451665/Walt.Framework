@@ -1,0 +1,376 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.2",
+    "signature": "0bdb34d886bbf0647a0a90c521ac1cb732b32a8b"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.2": {
+      "Walt.Framework.Quartz/1.0.0": {
+        "dependencies": {
+          "Confluent.Kafka": "0.11.6",
+          "Microsoft.NETCore.App": "2.2.0",
+          "Quartz": "3.0.7",
+          "Walt.Framework.Configuration": "1.2.3",
+          "Walt.Framework.Log": "1.3.3",
+          "Walt.Framework.Service": "1.8.4"
+        },
+        "runtime": {
+          "Walt.Framework.Quartz.dll": {}
+        }
+      },
+      "Confluent.Kafka/0.11.6": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.3",
+          "librdkafka.redist": "0.11.6"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Confluent.Kafka.dll": {
+            "assemblyVersion": "0.11.6.0",
+            "fileVersion": "0.11.6.0"
+          }
+        }
+      },
+      "librdkafka.redist/0.11.6": {
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/centos7-librdkafka.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/debian9-librdkafka.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/librdkafka.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/librdkafka.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/librdkafka.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/librdkafkacpp.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/msvcr120.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "12.0.21005.1"
+          },
+          "runtimes/win-x64/native/zlib.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "1.2.8.0"
+          },
+          "runtimes/win-x86/native/librdkafka.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/librdkafkacpp.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/msvcr120.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "12.0.21005.1"
+          },
+          "runtimes/win-x86/native/zlib.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "1.2.8.0"
+          }
+        }
+      },
+      "Microsoft.NETCore.App/2.2.0": {
+        "dependencies": {
+          "Microsoft.NETCore.DotNetHostPolicy": "2.2.0",
+          "Microsoft.NETCore.Platforms": "2.2.0",
+          "Microsoft.NETCore.Targets": "2.0.0",
+          "NETStandard.Library": "2.0.3"
+        }
+      },
+      "Microsoft.NETCore.DotNetAppHost/2.2.0": {},
+      "Microsoft.NETCore.DotNetHostPolicy/2.2.0": {
+        "dependencies": {
+          "Microsoft.NETCore.DotNetHostResolver": "2.2.0"
+        }
+      },
+      "Microsoft.NETCore.DotNetHostResolver/2.2.0": {
+        "dependencies": {
+          "Microsoft.NETCore.DotNetAppHost": "2.2.0"
+        }
+      },
+      "Microsoft.NETCore.Platforms/2.2.0": {},
+      "Microsoft.NETCore.Targets/2.0.0": {},
+      "NETStandard.Library/2.0.3": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "2.2.0"
+        }
+      },
+      "Quartz/3.0.7": {
+        "dependencies": {
+          "System.ComponentModel.TypeConverter": "4.3.0",
+          "System.Configuration.ConfigurationManager": "4.5.0",
+          "System.Data.Common": "4.3.0",
+          "System.Net.NameResolution": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Quartz.dll": {
+            "assemblyVersion": "3.0.7.0",
+            "fileVersion": "3.0.7.0"
+          }
+        }
+      },
+      "System.ComponentModel/4.3.0": {},
+      "System.ComponentModel.Primitives/4.3.0": {
+        "dependencies": {
+          "System.ComponentModel": "4.3.0"
+        }
+      },
+      "System.ComponentModel.TypeConverter/4.3.0": {
+        "dependencies": {
+          "System.ComponentModel": "4.3.0",
+          "System.ComponentModel.Primitives": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.5.0"
+        }
+      },
+      "System.Configuration.ConfigurationManager/4.5.0": {
+        "dependencies": {
+          "System.Security.Cryptography.ProtectedData": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll": {
+            "assemblyVersion": "4.0.1.0",
+            "fileVersion": "4.6.26515.6"
+          }
+        }
+      },
+      "System.Data.Common/4.3.0": {},
+      "System.Net.NameResolution/4.3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "2.2.0"
+        },
+        "runtimeTargets": {
+          "runtime/unix/lib/_._": {
+            "rid": "unix",
+            "assetType": "runtime"
+          },
+          "runtime/win/lib/_._": {
+            "rid": "win",
+            "assetType": "runtime"
+          }
+        }
+      },
+      "System.Reflection.TypeExtensions/4.5.0": {},
+      "System.Security.Cryptography.ProtectedData/4.5.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {
+            "assemblyVersion": "4.0.3.0",
+            "fileVersion": "4.6.26515.6"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.3.0",
+            "fileVersion": "4.6.26515.6"
+          }
+        }
+      },
+      "Walt.Framework.Configuration/1.2.3": {
+        "runtime": {
+          "lib/netcoreapp2.2/Walt.Framework.Configuration.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Walt.Framework.Log/1.3.3": {
+        "runtime": {
+          "lib/netcoreapp2.2/Walt.Framework.Log.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Walt.Framework.Service/1.8.4": {
+        "runtime": {
+          "lib/netcoreapp2.2/Walt.Framework.Service.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Walt.Framework.Quartz/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Confluent.Kafka/0.11.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-R13hy9lqnbmSjBtyihEo5Em8eJ3vIfAOHXZeXkJGMYGQQX98XdvYR3FOwMvNOecduIJiJJlFVntwfjX/rGgp6g==",
+      "path": "confluent.kafka/0.11.6",
+      "hashPath": "confluent.kafka.0.11.6.nupkg.sha512"
+    },
+    "librdkafka.redist/0.11.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-A+b/MoVI0DPjmxT6Uo3eKtLEtgy5qe1N5qsXx6QjaDYJmrsWI4Y9ciFkllvxgAxfdgp98mRQ0UwjOGKlNYH4NA==",
+      "path": "librdkafka.redist/0.11.6",
+      "hashPath": "librdkafka.redist.0.11.6.nupkg.sha512"
+    },
+    "Microsoft.NETCore.App/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QU8taCyeyePwatrj+h+750lMnsPCq3YPaGmsdtSHXPCjDyjto2KT7QDNVet0oRliX4PjaINpyg0Yzd9DnQ/Wkw==",
+      "path": "microsoft.netcore.app/2.2.0",
+      "hashPath": "microsoft.netcore.app.2.2.0.nupkg.sha512"
+    },
+    "Microsoft.NETCore.DotNetAppHost/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qIrVLupwT2NYTrf7KM7Nh+mJr36V5MITVRjyGOByVVCwGmQgQmI/6bjZYQv+QdExi4Cm87eCKJX9FdT6nc00Xg==",
+      "path": "microsoft.netcore.dotnetapphost/2.2.0",
+      "hashPath": "microsoft.netcore.dotnetapphost.2.2.0.nupkg.sha512"
+    },
+    "Microsoft.NETCore.DotNetHostPolicy/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5Xvh/3bDr6YAl6TKfeONvRDZ9QOmvVmzFzA0M6g8uubWdf5/o6qdVOqByFBT/fhjVb6okP0E5+v1oxh1Pk+c+w==",
+      "path": "microsoft.netcore.dotnethostpolicy/2.2.0",
+      "hashPath": "microsoft.netcore.dotnethostpolicy.2.2.0.nupkg.sha512"
+    },
+    "Microsoft.NETCore.DotNetHostResolver/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Q3j3KC2ugqIVasf7pO4NRDEn7GysZX3ZH6fAHfbjrP8cYXY9cmHeFcbaniw36q8kFhsPt2EnRHzSsLBpbG6l2Q==",
+      "path": "microsoft.netcore.dotnethostresolver/2.2.0",
+      "hashPath": "microsoft.netcore.dotnethostresolver.2.2.0.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Platforms/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-39+GVHdbm+cmoOjdvm+fhiMbddnuVyUlBdYS8Yhn5xsNaBoTXpgBsxQQlI2Sv9EjIP0F+itG6yrDaOM2OEGupQ==",
+      "path": "microsoft.netcore.platforms/2.2.0",
+      "hashPath": "microsoft.netcore.platforms.2.2.0.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Targets/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-odP/tJj1z6GylFpNo7pMtbd/xQgTC3Ex2If63dRTL38bBNMwsBnJ+RceUIyHdRBC0oik/3NehYT+oECwBhIM3Q==",
+      "path": "microsoft.netcore.targets/2.0.0",
+      "hashPath": "microsoft.netcore.targets.2.0.0.nupkg.sha512"
+    },
+    "NETStandard.Library/2.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
+      "path": "netstandard.library/2.0.3",
+      "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
+    },
+    "Quartz/3.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3vCJ/eJQzEne1ZocNftmPBjuA0vFHs8rOG3bQcSsB9fbQuZpmkrmOH+0Iq7mlibSbR9f1VV4TUMnkkbPUd7Kqw==",
+      "path": "quartz/3.0.7",
+      "hashPath": "quartz.3.0.7.nupkg.sha512"
+    },
+    "System.ComponentModel/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VyGn1jGRZVfxnh8EdvDCi71v3bMXrsu8aYJOwoV7SNDLVhiEqwP86pPMyRGsDsxhXAm2b3o9OIqeETfN5qfezw==",
+      "path": "system.componentmodel/4.3.0",
+      "hashPath": "system.componentmodel.4.3.0.nupkg.sha512"
+    },
+    "System.ComponentModel.Primitives/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-j8GUkCpM8V4d4vhLIIoBLGey2Z5bCkMVNjEZseyAlm4n5arcsJOeI3zkUP+zvZgzsbLTYh4lYeP/ZD/gdIAPrw==",
+      "path": "system.componentmodel.primitives/4.3.0",
+      "hashPath": "system.componentmodel.primitives.4.3.0.nupkg.sha512"
+    },
+    "System.ComponentModel.TypeConverter/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-16pQ6P+EdhcXzPiEK4kbA953Fu0MNG2ovxTZU81/qsCd1zPRsKc3uif5NgvllCY598k6bI0KUyKW8fanlfaDQg==",
+      "path": "system.componentmodel.typeconverter/4.3.0",
+      "hashPath": "system.componentmodel.typeconverter.4.3.0.nupkg.sha512"
+    },
+    "System.Configuration.ConfigurationManager/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+2SYYKwbN0n+9SrBanflZdaVleFkytEfTNzOu+f3SK0vROMMrorpw1UJyHJQ1ZooughRxPmLj8Fh5N2tSe7sdA==",
+      "path": "system.configuration.configurationmanager/4.5.0",
+      "hashPath": "system.configuration.configurationmanager.4.5.0.nupkg.sha512"
+    },
+    "System.Data.Common/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OGX4ifHI67s/2KRrXGMmEjmszCptbhWS4BieBdiBPl/8pn0A1xPMx0Gn0dKK0zKtEaelYNh5M7M5lCZL0EA4eA==",
+      "path": "system.data.common/4.3.0",
+      "hashPath": "system.data.common.4.3.0.nupkg.sha512"
+    },
+    "System.Net.NameResolution/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DPvMSdd32CbEOCTtOpO4nY9UvbP6LJe375F1yEQjy667WT5LEh1Ek2T4DSVw1STR0K3LSawWfBFwoeSG0TXFeA==",
+      "path": "system.net.nameresolution/4.3.0",
+      "hashPath": "system.net.nameresolution.4.3.0.nupkg.sha512"
+    },
+    "System.Reflection.TypeExtensions/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Si8PkGGxxDKLm6ap31x4hoDBsL3yX+gwmGJWqVJUwHofyTubjj8MjC6ckhAmjGWszWLA1wGNC+QAQMQkWG8qbw==",
+      "path": "system.reflection.typeextensions/4.5.0",
+      "hashPath": "system.reflection.typeextensions.4.5.0.nupkg.sha512"
+    },
+    "System.Security.Cryptography.ProtectedData/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-s/MFK8BvgtejZj5a8qAPDXEGBtWkpFX98qwQP/wqVa9CgIC7LrKHxDFdlN5x6afGAb0ZVBVGIZlCdBLnO2QjZw==",
+      "path": "system.security.cryptography.protecteddata/4.5.0",
+      "hashPath": "system.security.cryptography.protecteddata.4.5.0.nupkg.sha512"
+    },
+    "Walt.Framework.Configuration/1.2.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-G6Ki7ZIRr8AT5TC6cwFMrxQIwvC84HtPqkwNBavb6Cb5lRbYa6lsxiWNx5ppyz1hJj7kuXa3Ru6p6Ltut/ZScw==",
+      "path": "walt.framework.configuration/1.2.3",
+      "hashPath": "walt.framework.configuration.1.2.3.nupkg.sha512"
+    },
+    "Walt.Framework.Log/1.3.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-J6P70JboWfwRFtU3fa7vACpZCbN+/SUopbcE9XTcdciKmCzWBRHvgQJtVfR/OYykgfQqBpNe6eFteJXcsDQlMA==",
+      "path": "walt.framework.log/1.3.3",
+      "hashPath": "walt.framework.log.1.3.3.nupkg.sha512"
+    },
+    "Walt.Framework.Service/1.8.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hS0UPbszLEZ2FvMs6+Gm6lMgUuhHDM+/p8VHe+V5+McCnWT+iXfyBaySN6uoynE/KrynRRMb3Jlrl2VmkYxHyQ==",
+      "path": "walt.framework.service/1.8.4",
+      "hashPath": "walt.framework.service.1.8.4.nupkg.sha512"
+    }
+  }
+}

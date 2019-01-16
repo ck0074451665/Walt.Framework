@@ -1,0 +1,8 @@
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\output\netstandard2.0\Walt.Freamwork.Core.deps.json
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\output\netstandard2.0\Walt.Freamwork.Core.dll
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\output\netstandard2.0\Walt.Freamwork.Core.pdb
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core\obj\Debug\netstandard2.0\Walt.Freamwork.Core.csproj.CoreCompileInputs.cache
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core\obj\Debug\netstandard2.0\Walt.Freamwork.Core.AssemblyInfoInputs.cache
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core\obj\Debug\netstandard2.0\Walt.Freamwork.Core.AssemblyInfo.cs
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core\obj\Debug\netstandard2.0\Walt.Freamwork.Core.dll
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core\obj\Debug\netstandard2.0\Walt.Freamwork.Core.pdb

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+     <GenerateAssemblyVersionAttribute>true</GenerateAssemblyVersionAttribute>
+  </PropertyGroup>  
+   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+  </ItemGroup>  
+   <ItemGroup>
+     <ProjectReference Include="..\Walt.Framework.Service\Walt.Framework.Service.csproj" />
+     <ProjectReference Include="..\Walt.Framework.Configuration\Walt.Framework.Configuration.csproj" />
+   </ItemGroup>  
+</Project>

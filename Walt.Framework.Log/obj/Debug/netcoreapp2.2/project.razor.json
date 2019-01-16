@@ -1,0 +1,14 @@
+{
+  "ProjectFilePath": "g:\\project\\aspnetcore\\aspnetcoretest\\Walt.Freamwork\\Walt.Framework.Log\\Walt.Framework.Log.csproj",
+  "TargetFramework": "netcoreapp2.2",
+  "TagHelpers": [],
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  }
+}

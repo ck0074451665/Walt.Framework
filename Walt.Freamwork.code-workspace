@@ -1,0 +1,43 @@
+{
+	"folders": [
+		{
+			"path": "output"
+		},
+		{
+			"path": "publish"
+		},
+		{
+			"path": "Walt.Framework.Configuration"
+		},
+		{
+			"path": "Walt.Framework.Core"
+		},
+		{
+			"path": "Walt.Framework.Core.Test"
+		},
+		{
+			"path": "Walt.Framework.Data"
+		},
+		{
+			"path": "Walt.Framework.IService"
+		},
+		{
+			"path": "Walt.Framework.Log"
+		},
+		{
+			"path": "Walt.Framework.Service"
+		},
+		{
+			"path": "Walt.Framework.Utility"
+		},
+		{
+			"path": "Walt.Framework.Web"
+		},
+		{
+			"path": "Walt.Framework.Quartz"
+		}
+	],
+	"settings": {
+		"maven.view": "flat"
+	}
+}

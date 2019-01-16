@@ -1,0 +1,14 @@
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core.Test\bin\Debug\netcoreapp2.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core.Test\bin\Debug\netcoreapp2.1\xunit.runner.reporters.netcoreapp10.dll
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core.Test\bin\Debug\netcoreapp2.1\xunit.runner.utility.netcoreapp10.dll
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core.Test\bin\Debug\netcoreapp2.1\Walt.Freamwork.Core.Test.deps.json
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core.Test\bin\Debug\netcoreapp2.1\Walt.Freamwork.Core.Test.runtimeconfig.json
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core.Test\bin\Debug\netcoreapp2.1\Walt.Freamwork.Core.Test.runtimeconfig.dev.json
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core.Test\bin\Debug\netcoreapp2.1\Walt.Freamwork.Core.Test.dll
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core.Test\bin\Debug\netcoreapp2.1\Walt.Freamwork.Core.Test.pdb
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core.Test\obj\Debug\netcoreapp2.1\Walt.Freamwork.Core.Test.csprojAssemblyReference.cache
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core.Test\obj\Debug\netcoreapp2.1\Walt.Freamwork.Core.Test.csproj.CoreCompileInputs.cache
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core.Test\obj\Debug\netcoreapp2.1\Walt.Freamwork.Core.Test.AssemblyInfoInputs.cache
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core.Test\obj\Debug\netcoreapp2.1\Walt.Freamwork.Core.Test.AssemblyInfo.cs
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core.Test\obj\Debug\netcoreapp2.1\Walt.Freamwork.Core.Test.dll
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Core.Test\obj\Debug\netcoreapp2.1\Walt.Freamwork.Core.Test.pdb

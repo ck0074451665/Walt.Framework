@@ -1,0 +1,12 @@
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Web\bin\Debug\netcoreapp2.1\Walt.Freamwork.Web.deps.json
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Web\bin\Debug\netcoreapp2.1\Walt.Freamwork.Web.dll
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Web\bin\Debug\netcoreapp2.1\Walt.Freamwork.Web.pdb
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Web\obj\Debug\netcoreapp2.1\Walt.Freamwork.Web.csprojAssemblyReference.cache
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Web\obj\Debug\netcoreapp2.1\Walt.Freamwork.Web.csproj.CoreCompileInputs.cache
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Web\obj\Debug\netcoreapp2.1\Walt.Freamwork.Web.dll
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Web\obj\Debug\netcoreapp2.1\Walt.Freamwork.Web.pdb
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\netcoreapp2.1\Walt.Freamwork.Web.deps.json
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\netcoreapp2.1\Walt.Freamwork.Web.dll
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\netcoreapp2.1\Walt.Freamwork.Web.pdb
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Web\obj\Debug\netcoreapp2.1\Walt.Freamwork.Web.AssemblyInfoInputs.cache
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Freamwork.Web\obj\Debug\netcoreapp2.1\Walt.Freamwork.Web.AssemblyInfo.cs

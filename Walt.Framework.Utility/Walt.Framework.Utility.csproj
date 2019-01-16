@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+     <GenerateAssemblyVersionAttribute>true</GenerateAssemblyVersionAttribute>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\output\</OutputPath>
+  </PropertyGroup>
+
+</Project>
