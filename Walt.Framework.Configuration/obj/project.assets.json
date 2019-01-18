@@ -6811,11 +6811,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\project\\aspnetcore\\aspnetcoretest\\Walt.Freamwork\\Walt.Framework.Configuration\\Walt.Framework.Configuration.csproj",
+      "projectUniqueName": "G:\\project\\aspnetcoregithub\\Walt.Framework\\Walt.Framework.Configuration\\Walt.Framework.Configuration.csproj",
       "projectName": "Walt.Framework.Configuration",
-      "projectPath": "G:\\project\\aspnetcore\\aspnetcoretest\\Walt.Freamwork\\Walt.Framework.Configuration\\Walt.Framework.Configuration.csproj",
+      "projectPath": "G:\\project\\aspnetcoregithub\\Walt.Framework\\Walt.Framework.Configuration\\Walt.Framework.Configuration.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "G:\\project\\aspnetcore\\aspnetcoretest\\Walt.Freamwork\\Walt.Framework.Configuration\\obj\\",
+      "outputPath": "G:\\project\\aspnetcoregithub\\Walt.Framework\\Walt.Framework.Configuration\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -6835,8 +6835,8 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "G:\\project\\aspnetcore\\aspnetcoretest\\Walt.Freamwork\\Walt.Framework.Service\\Walt.Framework.Service.csproj": {
-              "projectPath": "G:\\project\\aspnetcore\\aspnetcoretest\\Walt.Freamwork\\Walt.Framework.Service\\Walt.Framework.Service.csproj"
+            "G:\\project\\aspnetcoregithub\\Walt.Framework\\Walt.Framework.Service\\Walt.Framework.Service.csproj": {
+              "projectPath": "G:\\project\\aspnetcoregithub\\Walt.Framework\\Walt.Framework.Service\\Walt.Framework.Service.csproj"
             }
           }
         }

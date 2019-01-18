@@ -21,6 +21,18 @@
           "lib/netstandard1.3/Confluent.Kafka.dll": {}
         }
       },
+      "Google.Protobuf/3.5.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "lib/netstandard1.0/Google.Protobuf.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/Google.Protobuf.dll": {}
+        }
+      },
       "librdkafka.redist/0.11.6": {
         "type": "package",
         "build": {
@@ -1748,11 +1760,11 @@
           "lib/netstandard1.3/Microsoft.DotNet.PlatformAbstractions.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore/2.2.0": {
+      "Microsoft.EntityFrameworkCore/2.2.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "2.2.0",
-          "Microsoft.EntityFrameworkCore.Analyzers": "2.2.0",
+          "Microsoft.EntityFrameworkCore.Abstractions": "2.2.1",
+          "Microsoft.EntityFrameworkCore.Analyzers": "2.2.1",
           "Microsoft.Extensions.Caching.Memory": "2.2.0",
           "Microsoft.Extensions.DependencyInjection": "2.2.0",
           "Microsoft.Extensions.Logging": "2.2.0",
@@ -1769,7 +1781,7 @@
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Abstractions/2.2.0": {
+      "Microsoft.EntityFrameworkCore.Abstractions/2.2.1": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {}
@@ -1778,7 +1790,7 @@
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Analyzers/2.2.0": {
+      "Microsoft.EntityFrameworkCore.Analyzers/2.2.1": {
         "type": "package"
       },
       "Microsoft.EntityFrameworkCore.Design/2.2.0": {
@@ -2784,6 +2796,34 @@
           }
         }
       },
+      "MySql.Data/8.0.13": {
+        "type": "package",
+        "dependencies": {
+          "Google.Protobuf": "3.5.1",
+          "System.Configuration.ConfigurationManager": "4.4.1",
+          "System.Security.Permissions": "4.4.1",
+          "System.Text.Encoding.CodePages": "4.4.0"
+        },
+        "compile": {
+          "lib/netcoreapp2.0/MySql.Data.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/MySql.Data.dll": {}
+        }
+      },
+      "MySql.Data.EntityFrameworkCore/8.0.13": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "2.1.2",
+          "MySql.Data": "8.0.13"
+        },
+        "compile": {
+          "lib/netstandard2.0/MySql.Data.EntityFrameworkCore.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/MySql.Data.EntityFrameworkCore.dll": {}
+        }
+      },
       "NETStandard.Library/2.0.3": {
         "type": "package",
         "dependencies": {
@@ -2842,6 +2882,19 @@
         },
         "runtime": {
           "lib/netstandard2.0/Quartz.dll": {}
+        }
+      },
+      "Quartz.Serialization.Json/3.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2",
+          "Quartz": "3.0.7"
+        },
+        "compile": {
+          "lib/netstandard2.0/Quartz.Serialization.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Quartz.Serialization.Json.dll": {}
         }
       },
       "Remotion.Linq/2.2.0": {
@@ -4394,7 +4447,7 @@
           "System.Runtime.CompilerServices.Unsafe": "4.5.0"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/System.Text.Encoding.CodePages.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Text.Encoding.CodePages.dll": {}
@@ -4673,15 +4726,6 @@
           "lib/netcoreapp2.2/Walt.Framework.Configuration.dll": {}
         }
       },
-      "Walt.Framework.Log/1.3.3": {
-        "type": "package",
-        "compile": {
-          "lib/netcoreapp2.2/Walt.Framework.Log.dll": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.2/Walt.Framework.Log.dll": {}
-        }
-      },
       "Walt.Framework.Service/1.8.4": {
         "type": "package",
         "compile": {
@@ -4689,6 +4733,31 @@
         },
         "runtime": {
           "lib/netcoreapp2.2/Walt.Framework.Service.dll": {}
+        }
+      },
+      "Walt.Framework.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "compile": {
+          "bin/placeholder/Walt.Framework.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Walt.Framework.Core.dll": {}
+        }
+      },
+      "Walt.Framework.Log/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "dependencies": {
+          "Microsoft.AspNetCore": "2.2.0",
+          "Walt.Framework.Configuration": "1.0.0",
+          "Walt.Framework.Service": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Walt.Framework.Log.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Walt.Framework.Log.dll": {}
         }
       }
     }
@@ -4709,6 +4778,21 @@
         "lib/net46/Confluent.Kafka.xml",
         "lib/netstandard1.3/Confluent.Kafka.dll",
         "lib/netstandard1.3/Confluent.Kafka.xml"
+      ]
+    },
+    "Google.Protobuf/3.5.1": {
+      "sha512": "j/gbpRZ68sgvdi/vXI39Cj/jWG4d1dtDqfWbkjC9dErNWu/dFcIlq1LIgLscea+llZ6nzm06wz/JGziOegAL7Q==",
+      "type": "package",
+      "path": "google.protobuf/3.5.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "google.protobuf.3.5.1.nupkg.sha512",
+        "google.protobuf.nuspec",
+        "lib/net45/Google.Protobuf.dll",
+        "lib/net45/Google.Protobuf.xml",
+        "lib/netstandard1.0/Google.Protobuf.dll",
+        "lib/netstandard1.0/Google.Protobuf.xml"
       ]
     },
     "librdkafka.redist/0.11.6": {
@@ -6187,41 +6271,41 @@
         "microsoft.dotnet.platformabstractions.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore/2.2.0": {
-      "sha512": "sShQ1XMPv3HS6UJjtUs8AsZ1hEFUzwRpeRP9uavrfkaoWGOXwe4Klt131A+i9+/drnzbbEdzrhFkUiMWbzc4cg==",
+    "Microsoft.EntityFrameworkCore/2.2.1": {
+      "sha512": "NPLUN0CjvxirJYcsXdmxQKUKxKGlRikTYk3DYJZN2EZmfvtqgyphwe2wDM6rii8DAIJG/Yb5NeMapkT+eHGrLA==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore/2.2.0",
+      "path": "microsoft.entityframeworkcore/2.2.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.dll",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.xml",
-        "microsoft.entityframeworkcore.2.2.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.2.2.1.nupkg.sha512",
         "microsoft.entityframeworkcore.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Abstractions/2.2.0": {
-      "sha512": "aBDhI9ltp7m4BaoH7LhH1p/DiO95rpAgDD09JX3W9VAmEgTaamXzlbc1W6BhQhs9ScMDbi5HoJw+LQCAVUfV9w==",
+    "Microsoft.EntityFrameworkCore.Abstractions/2.2.1": {
+      "sha512": "ps+DT7pm2v/hp+fL1IFFOO/IcklhvRpWJhEfnVG5SOKHQkCAMmm6bOKiBPMvf34AyjJE57REUFsyqJxl/j7g+w==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.abstractions/2.2.0",
+      "path": "microsoft.entityframeworkcore.abstractions/2.2.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Abstractions.dll",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Abstractions.xml",
-        "microsoft.entityframeworkcore.abstractions.2.2.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.abstractions.2.2.1.nupkg.sha512",
         "microsoft.entityframeworkcore.abstractions.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Analyzers/2.2.0": {
-      "sha512": "DYK/p3Fn7gz8bg8UelTRyJ9aH+i4bAQxeQ5YJTgCkNeTnyftHlw0ru1wZ/tUFlM27Cq2u5EYbvWBpefPo0izuw==",
+    "Microsoft.EntityFrameworkCore.Analyzers/2.2.1": {
+      "sha512": "4gmeUeD1WFCXJLelSTRmS0O0ozYSPzUsectv6lLfhiCtS7AIIk1MBsRZzSrHiVzOv7b+ksLn76mmM0rG1f1kFg==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.analyzers/2.2.0",
+      "path": "microsoft.entityframeworkcore.analyzers/2.2.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "analyzers/dotnet/cs/Microsoft.EntityFrameworkCore.Analyzers.dll",
-        "microsoft.entityframeworkcore.analyzers.2.2.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.analyzers.2.2.1.nupkg.sha512",
         "microsoft.entityframeworkcore.analyzers.nuspec"
       ]
     },
@@ -7510,6 +7594,44 @@
         "version.txt"
       ]
     },
+    "MySql.Data/8.0.13": {
+      "sha512": "mXfjg2pOdzpyd4wkXZPKYcNluzV68ggAO/LPcT7iuzU5kDS7livUDR8IsKkarEhBmRxBy0XmBnUOkEWJvfOW9Q==",
+      "type": "package",
+      "path": "mysql.data/8.0.13",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net452/MySql.Data.dll",
+        "lib/net452/MySql.Data.xml",
+        "lib/netcoreapp2.0/MySql.Data.dll",
+        "lib/netcoreapp2.0/MySql.Data.xml",
+        "lib/netstandard1.6/MySql.Data.dll",
+        "lib/netstandard1.6/MySql.Data.xml",
+        "lib/netstandard2.0/MySql.Data.dll",
+        "lib/netstandard2.0/MySql.Data.xml",
+        "mysql.data.8.0.13.nupkg.sha512",
+        "mysql.data.nuspec"
+      ]
+    },
+    "MySql.Data.EntityFrameworkCore/8.0.13": {
+      "sha512": "sNVNRZOcj2U3zGebejYxrDvYvZVf5F45tmGW3bl5HghoOgL9nwT2t8NRF7WTkaKGXD7QkhUgt3xHyDXr/Xc/6A==",
+      "type": "package",
+      "path": "mysql.data.entityframeworkcore/8.0.13",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net452/MySql.Data.EntityFrameworkCore.dll",
+        "lib/net452/MySql.Data.EntityFrameworkCore.xml",
+        "lib/net461/MySql.Data.EntityFrameworkCore.dll",
+        "lib/net461/MySql.Data.EntityFrameworkCore.xml",
+        "lib/netstandard1.6/MySql.Data.EntityFrameworkCore.dll",
+        "lib/netstandard1.6/MySql.Data.EntityFrameworkCore.xml",
+        "lib/netstandard2.0/MySql.Data.EntityFrameworkCore.dll",
+        "lib/netstandard2.0/MySql.Data.EntityFrameworkCore.xml",
+        "mysql.data.entityframeworkcore.8.0.13.nupkg.sha512",
+        "mysql.data.entityframeworkcore.nuspec"
+      ]
+    },
     "NETStandard.Library/2.0.3": {
       "sha512": "st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "type": "package",
@@ -7698,6 +7820,23 @@
         "lib/netstandard2.0/Quartz.xml",
         "quartz.3.0.7.nupkg.sha512",
         "quartz.nuspec"
+      ]
+    },
+    "Quartz.Serialization.Json/3.0.7": {
+      "sha512": "Mf4jcSP7Rnk63cvEskfbwLK5K47afBU/A3o9MnOj+JPLAxY7+a74J4zg56RQ4CmW0/JKri8sGFmOmFX5cUqp3Q==",
+      "type": "package",
+      "path": "quartz.serialization.json/3.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net452/Quartz.Serialization.Json.dll",
+        "lib/net452/Quartz.Serialization.Json.pdb",
+        "lib/net452/Quartz.Serialization.Json.xml",
+        "lib/netstandard2.0/Quartz.Serialization.Json.dll",
+        "lib/netstandard2.0/Quartz.Serialization.Json.pdb",
+        "lib/netstandard2.0/Quartz.Serialization.Json.xml",
+        "quartz.serialization.json.3.0.7.nupkg.sha512",
+        "quartz.serialization.json.nuspec"
       ]
     },
     "Remotion.Linq/2.2.0": {
@@ -12718,17 +12857,6 @@
         "walt.framework.configuration.nuspec"
       ]
     },
-    "Walt.Framework.Log/1.3.3": {
-      "sha512": "J6P70JboWfwRFtU3fa7vACpZCbN+/SUopbcE9XTcdciKmCzWBRHvgQJtVfR/OYykgfQqBpNe6eFteJXcsDQlMA==",
-      "type": "package",
-      "path": "walt.framework.log/1.3.3",
-      "files": [
-        ".nupkg.metadata",
-        "lib/netcoreapp2.2/Walt.Framework.Log.dll",
-        "walt.framework.log.1.3.3.nupkg.sha512",
-        "walt.framework.log.nuspec"
-      ]
-    },
     "Walt.Framework.Service/1.8.4": {
       "sha512": "hS0UPbszLEZ2FvMs6+Gm6lMgUuhHDM+/p8VHe+V5+McCnWT+iXfyBaySN6uoynE/KrynRRMb3Jlrl2VmkYxHyQ==",
       "type": "package",
@@ -12739,16 +12867,31 @@
         "walt.framework.service.1.8.4.nupkg.sha512",
         "walt.framework.service.nuspec"
       ]
+    },
+    "Walt.Framework.Core/1.0.0": {
+      "type": "project",
+      "path": "../Walt.Framework.Core/Walt.Framework.Core.csproj",
+      "msbuildProject": "../Walt.Framework.Core/Walt.Framework.Core.csproj"
+    },
+    "Walt.Framework.Log/1.0.0": {
+      "type": "project",
+      "path": "../Walt.Framework.Log/Walt.Framework.Log.csproj",
+      "msbuildProject": "../Walt.Framework.Log/Walt.Framework.Log.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
       "Confluent.Kafka >= 0.11.6",
       "Microsoft.AspNetCore.App >= 2.2.0",
+      "Microsoft.EntityFrameworkCore >= 2.2.1",
       "Microsoft.NETCore.App >= 2.2.0",
+      "MySql.Data >= 8.0.13",
+      "MySql.Data.EntityFrameworkCore >= 8.0.13",
       "Quartz >= 3.0.7",
+      "Quartz.Serialization.Json >= 3.0.7",
       "Walt.Framework.Configuration >= 1.2.3",
-      "Walt.Framework.Log >= 1.3.3",
+      "Walt.Framework.Core >= 1.0.0",
+      "Walt.Framework.Log >= 1.0.0",
       "Walt.Framework.Service >= 1.8.4"
     ]
   },
@@ -12782,7 +12925,14 @@
       },
       "frameworks": {
         "netcoreapp2.2": {
-          "projectReferences": {}
+          "projectReferences": {
+            "G:\\project\\aspnetcoregithub\\Walt.Framework\\Walt.Framework.Core\\Walt.Framework.Core.csproj": {
+              "projectPath": "G:\\project\\aspnetcoregithub\\Walt.Framework\\Walt.Framework.Core\\Walt.Framework.Core.csproj"
+            },
+            "G:\\project\\aspnetcoregithub\\Walt.Framework\\Walt.Framework.Log\\Walt.Framework.Log.csproj": {
+              "projectPath": "G:\\project\\aspnetcoregithub\\Walt.Framework\\Walt.Framework.Log\\Walt.Framework.Log.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -12804,23 +12954,35 @@
             "version": "[2.2.0, )",
             "autoReferenced": true
           },
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[2.2.1, )"
+          },
           "Microsoft.NETCore.App": {
             "suppressParent": "All",
             "target": "Package",
             "version": "[2.2.0, )",
             "autoReferenced": true
           },
+          "MySql.Data": {
+            "target": "Package",
+            "version": "[8.0.13, )"
+          },
+          "MySql.Data.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[8.0.13, )"
+          },
           "Quartz": {
+            "target": "Package",
+            "version": "[3.0.7, )"
+          },
+          "Quartz.Serialization.Json": {
             "target": "Package",
             "version": "[3.0.7, )"
           },
           "Walt.Framework.Configuration": {
             "target": "Package",
             "version": "[1.2.3, )"
-          },
-          "Walt.Framework.Log": {
-            "target": "Package",
-            "version": "[1.3.3, )"
           },
           "Walt.Framework.Service": {
             "target": "Package",

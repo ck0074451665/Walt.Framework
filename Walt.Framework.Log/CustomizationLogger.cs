@@ -165,8 +165,9 @@ namespace Walt.Framework.Log
             //     Message =_prix+"--"+ logBuilder.ToString(), 
             //     LevelString = hasLevel ? logLevelString : null
             // });
+            string mess=DateTime.Now.ToString("o")+" ["+(hasLevel?logLevelString : null)+"] "+_prix+" "+ logBuilder.ToString();
             var  task=_kafkaService.Producer(_logStoreTopic
-            ,"test",_prix+"--"+ logBuilder.ToString());
+            ,"test",mess);
             if(task==null) throw new NullReferenceException("方法没有返回有效的task");
             var result= task.Result;
            //Console.WriteLine(_prix+"--"+ logBuilder.ToString());

@@ -9,4 +9,9 @@
     <OutputPath>G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\output\</OutputPath>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.13" />
+    <PackageReference Include="MySql.Data.Entity" Version="6.10.8" />
+  </ItemGroup>
+
 </Project>

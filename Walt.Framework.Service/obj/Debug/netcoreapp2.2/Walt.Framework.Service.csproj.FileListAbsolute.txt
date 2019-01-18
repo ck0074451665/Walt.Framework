@@ -7,3 +7,9 @@ G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\output\netcoreapp2.2\Walt.Fr
 G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\output\netcoreapp2.2\Walt.Framework.Service.pdb
 G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Service\obj\Debug\netcoreapp2.2\Walt.Framework.Service.dll
 G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Service\obj\Debug\netcoreapp2.2\Walt.Framework.Service.pdb
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Service\obj\Debug\netcoreapp2.2\Walt.Framework.Service.csprojAssemblyReference.cache
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Service\obj\Debug\netcoreapp2.2\Walt.Framework.Service.csproj.CoreCompileInputs.cache
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Service\obj\Debug\netcoreapp2.2\Walt.Framework.Service.AssemblyInfoInputs.cache
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Service\obj\Debug\netcoreapp2.2\Walt.Framework.Service.AssemblyInfo.cs
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Service\obj\Debug\netcoreapp2.2\Walt.Framework.Service.dll
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Service\obj\Debug\netcoreapp2.2\Walt.Framework.Service.pdb

@@ -1,0 +1,9 @@
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\output\netcoreapp2.1\Walt.Framework.Data.deps.json
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\output\netcoreapp2.1\Walt.Framework.Data.dll
+G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\output\netcoreapp2.1\Walt.Framework.Data.pdb
+g:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Data\obj\Debug\netcoreapp2.1\Walt.Framework.Data.csprojAssemblyReference.cache
+g:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Data\obj\Debug\netcoreapp2.1\Walt.Framework.Data.csproj.CoreCompileInputs.cache
+g:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Data\obj\Debug\netcoreapp2.1\Walt.Framework.Data.AssemblyInfoInputs.cache
+g:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Data\obj\Debug\netcoreapp2.1\Walt.Framework.Data.AssemblyInfo.cs
+g:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Data\obj\Debug\netcoreapp2.1\Walt.Framework.Data.dll
+g:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Data\obj\Debug\netcoreapp2.1\Walt.Framework.Data.pdb

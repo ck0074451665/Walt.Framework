@@ -14,7 +14,11 @@
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart"
+            "internalConsoleOptions": "openOnSessionStart",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "PREFIX_QUARTZ_INSTANCE_NUMBER": "testone"
+            }
         },
         {
             "name": ".NET Core Launch (web)",
@@ -41,7 +45,8 @@
                 }
             },
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "PREFIX_QUARTZ_INSTANCE_NUMBER": "testone"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"

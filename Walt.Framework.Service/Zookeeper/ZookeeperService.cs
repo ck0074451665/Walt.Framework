@@ -187,7 +187,15 @@ namespace  Walt.Framework.Service.Zookeeper
             {
                  _logger.LogDebug("即将进行同步。"); 
                  var task=Task.Run(async ()=>{
-                    await _zookeeper.sync(path);  
+                     try
+                     {
+                         await _zookeeper.sync(path);  
+                    }
+                    catch(Exception ep)
+                    {
+                       _logger.LogError("同步失败。",ep);
+                       return;  
+                    }
                  }); 
                 task.Wait();
             }
@@ -224,8 +232,16 @@ namespace  Walt.Framework.Service.Zookeeper
             {
                  _logger.LogDebug("即将进行同步。");
                  var task=Task.Run(async  ()=>{
-                      _logger.LogDebug("开始同步");
-                      await _zookeeper.sync(path);  
+                     try
+                     {
+                        _logger.LogDebug("开始同步");
+                        await _zookeeper.sync(path);  
+                      }
+                      catch(Exception ep)
+                      {
+                          _logger.LogError("同步失败。",ep);
+                          return;
+                      }
                  });
                 task.Wait();
             }
@@ -245,8 +261,16 @@ namespace  Walt.Framework.Service.Zookeeper
                 return;
             }
             var  task=Task.Run(async ()=>{
+                try
+                {
                  _logger.LogDebug("删除node：{0}",path);
                   await _zookeeper.deleteAsync(path);
+                }
+                catch(Exception ep)
+                {
+                    _logger.LogError("删除失败",ep);
+                    return;
+                }
             });
             task.Wait();
             var sequencePath=requestLockSequence.Where(w=>path==w).FirstOrDefault();
@@ -357,8 +381,16 @@ namespace  Walt.Framework.Service.Zookeeper
          public void Close(string tempNode)
          {
              var task=Task.Run(async ()=>{ 
-             requestLockSequence.Remove(tempNode); 
-              await _zookeeper.closeAsync();
+                 try
+                 {
+                     requestLockSequence.Remove(tempNode); 
+                    await _zookeeper.closeAsync();
+                 }
+                 catch(Exception ep)
+                 {
+                      _logger.LogError("zookeeper关闭失败。",ep);
+                 }
+
              });
              task.Wait(); 
          }

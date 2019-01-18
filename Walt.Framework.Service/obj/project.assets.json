@@ -6791,11 +6791,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "g:\\project\\aspnetcore\\aspnetcoretest\\Walt.Freamwork\\Walt.Framework.Service\\Walt.Framework.Service.csproj",
+      "projectUniqueName": "g:\\project\\aspnetcoregithub\\Walt.Framework\\Walt.Framework.Service\\Walt.Framework.Service.csproj",
       "projectName": "Walt.Framework.Service",
-      "projectPath": "g:\\project\\aspnetcore\\aspnetcoretest\\Walt.Freamwork\\Walt.Framework.Service\\Walt.Framework.Service.csproj",
+      "projectPath": "g:\\project\\aspnetcoregithub\\Walt.Framework\\Walt.Framework.Service\\Walt.Framework.Service.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "g:\\project\\aspnetcore\\aspnetcoretest\\Walt.Freamwork\\Walt.Framework.Service\\obj\\",
+      "outputPath": "g:\\project\\aspnetcoregithub\\Walt.Framework\\Walt.Framework.Service\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

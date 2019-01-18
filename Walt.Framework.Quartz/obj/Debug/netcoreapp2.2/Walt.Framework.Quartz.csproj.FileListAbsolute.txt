@@ -9,3 +9,8 @@ G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\obj\Debug\netco
 G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\obj\Debug\netcoreapp2.2\Walt.Framework.Quartz.AssemblyInfo.cs
 G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\obj\Debug\netcoreapp2.2\Walt.Framework.Quartz.dll
 G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\obj\Debug\netcoreapp2.2\Walt.Framework.Quartz.pdb
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\bin\Debug\netcoreapp2.2\Walt.Framework.Core.dll
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\bin\Debug\netcoreapp2.2\Walt.Framework.Core.pdb
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\obj\Debug\netcoreapp2.2\Walt.Framework.Quartz.csproj.CopyComplete
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\bin\Debug\netcoreapp2.2\Walt.Framework.Log.dll
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\bin\Debug\netcoreapp2.2\Walt.Framework.Log.pdb
