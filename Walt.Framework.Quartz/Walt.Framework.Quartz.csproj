@@ -2,21 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <OutputType>Exe</OutputType>
   </PropertyGroup>
  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.1" />
-    <PackageReference Include="MySql.Data" Version="8.0.13" />
-    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.13" />
-    <PackageReference Include="Quartz" Version="3.0.7" />
-    <PackageReference Include="Quartz.Serialization.Json" Version="3.0.7" />
-    <PackageReference Include="Walt.Framework.Configuration" Version="1.2.3" />
-    <PackageReference Include="Walt.Framework.Service" Version="1.8.4" />
-    <PackageReference Include="Confluent.Kafka" Version="0.11.6" />
-  </ItemGroup>
- <ItemGroup>
-   <ProjectReference Include="..\Walt.Framework.Core\Walt.Framework.Core.csproj" />
-   <ProjectReference Include="..\Walt.Framework.Log\Walt.Framework.Log.csproj" />
- </ItemGroup>  
+ </ItemGroup>
 </Project>

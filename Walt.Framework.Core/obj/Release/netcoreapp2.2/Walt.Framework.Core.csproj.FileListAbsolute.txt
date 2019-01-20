@@ -1,0 +1,9 @@
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Core\bin\Release\netcoreapp2.2\Walt.Framework.Core.deps.json
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Core\bin\Release\netcoreapp2.2\Walt.Framework.Core.dll
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Core\bin\Release\netcoreapp2.2\Walt.Framework.Core.pdb
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Core\obj\Release\netcoreapp2.2\Walt.Framework.Core.csprojAssemblyReference.cache
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Core\obj\Release\netcoreapp2.2\Walt.Framework.Core.csproj.CoreCompileInputs.cache
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Core\obj\Release\netcoreapp2.2\Walt.Framework.Core.AssemblyInfoInputs.cache
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Core\obj\Release\netcoreapp2.2\Walt.Framework.Core.AssemblyInfo.cs
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Core\obj\Release\netcoreapp2.2\Walt.Framework.Core.dll
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Core\obj\Release\netcoreapp2.2\Walt.Framework.Core.pdb

@@ -10,3 +10,15 @@ G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Configuration
 G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Configuration\obj\Release\netcoreapp2.2\Walt.Framework.Configuration.csproj.CopyComplete
 G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Configuration\obj\Release\netcoreapp2.2\Walt.Framework.Configuration.dll
 G:\project\aspnetcore\aspnetcoretest\Walt.Freamwork\Walt.Framework.Configuration\obj\Release\netcoreapp2.2\Walt.Framework.Configuration.pdb
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Configuration\bin\Release\netcoreapp2.2\Walt.Framework.Configuration.deps.json
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Configuration\bin\Release\netcoreapp2.2\Walt.Framework.Configuration.dll
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Configuration\bin\Release\netcoreapp2.2\Walt.Framework.Configuration.pdb
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Configuration\bin\Release\netcoreapp2.2\Walt.Framework.Service.dll
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Configuration\bin\Release\netcoreapp2.2\Walt.Framework.Service.pdb
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Configuration\obj\Release\netcoreapp2.2\Walt.Framework.Configuration.csprojAssemblyReference.cache
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Configuration\obj\Release\netcoreapp2.2\Walt.Framework.Configuration.csproj.CoreCompileInputs.cache
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Configuration\obj\Release\netcoreapp2.2\Walt.Framework.Configuration.AssemblyInfoInputs.cache
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Configuration\obj\Release\netcoreapp2.2\Walt.Framework.Configuration.AssemblyInfo.cs
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Configuration\obj\Release\netcoreapp2.2\Walt.Framework.Configuration.csproj.CopyComplete
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Configuration\obj\Release\netcoreapp2.2\Walt.Framework.Configuration.dll
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Configuration\obj\Release\netcoreapp2.2\Walt.Framework.Configuration.pdb

@@ -1,0 +1,11 @@
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\bin\Release\netcoreapp2.2\Walt.Framework.Quartz.deps.json
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\bin\Release\netcoreapp2.2\Walt.Framework.Quartz.runtimeconfig.json
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\bin\Release\netcoreapp2.2\Walt.Framework.Quartz.runtimeconfig.dev.json
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\bin\Release\netcoreapp2.2\Walt.Framework.Quartz.dll
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\bin\Release\netcoreapp2.2\Walt.Framework.Quartz.pdb
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\obj\Release\netcoreapp2.2\Walt.Framework.Quartz.csprojAssemblyReference.cache
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\obj\Release\netcoreapp2.2\Walt.Framework.Quartz.csproj.CoreCompileInputs.cache
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\obj\Release\netcoreapp2.2\Walt.Framework.Quartz.AssemblyInfoInputs.cache
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\obj\Release\netcoreapp2.2\Walt.Framework.Quartz.AssemblyInfo.cs
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\obj\Release\netcoreapp2.2\Walt.Framework.Quartz.dll
+G:\project\aspnetcoregithub\Walt.Framework\Walt.Framework.Quartz\obj\Release\netcoreapp2.2\Walt.Framework.Quartz.pdb
