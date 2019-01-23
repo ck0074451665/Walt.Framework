@@ -6,10 +6,9 @@ namespace Walt.Framework.Quartz
 {
     public class  DistributingData
     {
-        public int RecordSum{get;set;}
-
-        public DistributingDataItem[] Items;
-
+        public string DistributeFlag{get;set;}
+        public int PageIndex{get;set;}
+        public int PageSize{get;set;}
 
     }
 }

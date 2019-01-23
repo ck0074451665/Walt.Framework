@@ -41,7 +41,7 @@ cd .\..\publish
 cd .\..\Walt.Framework.Quartz
 dotnet restore
 dotnet build
-set versionNumber=1.0.1
+set versionNumber=1.0.3
 nuget pack . -Build -Prop Configuration=Release   -Version %versionNumber% -OutputDirectory .\..\output
 
 cd .\..\output

@@ -12,21 +12,22 @@
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.13" />
     <PackageReference Include="Quartz" Version="3.0.7" />
     <PackageReference Include="Quartz.Serialization.Json" Version="3.0.7" />
-    <PackageReference Include="Walt.Framework.Configuration" Version="1.2.3" />
-    <PackageReference Include="Walt.Framework.Service" Version="1.8.4" />
     <PackageReference Include="Confluent.Kafka" Version="0.11.6" />
+    <PackageReference Include="ZooKeeperNetEx" Version="3.4.12.1" />
   </ItemGroup>
  <ItemGroup>
    <ProjectReference Include="..\Walt.Framework.Core\Walt.Framework.Core.csproj" />
    <ProjectReference Include="..\Walt.Framework.Log\Walt.Framework.Log.csproj" />
  </ItemGroup>  
  <ItemGroup>
-   <Content CopyToOutputDirectory="Always"  Include="AssemblyColl/*"> 
-   </Content> 
+   <Content CopyToOutputDirectory="Always" Include="AssemblyColl/*"> 
+   </Content>  
  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Walt.Framework.Quartz\Walt.Framework.Quartz.csproj" />
+    <ProjectReference Include="..\Walt.Framework.Service\Walt.Framework.Service.csproj" />
+    <ProjectReference Include="..\Walt.Framework.Configuration\Walt.Framework.Configuration.csproj" />
   </ItemGroup>
 
 </Project>

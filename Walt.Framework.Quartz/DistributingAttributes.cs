@@ -6,11 +6,9 @@ namespace Walt.Framework.Quartz
 {
     public class  DistributingAttributes:Attribute
     {
-        private int _instanceNumber; 
 
-        public DistributingAttributes(int instanceNumber)
+        public DistributingAttributes()
         {
-            _instanceNumber=instanceNumber;
         }
     }
 }

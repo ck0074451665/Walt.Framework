@@ -11,6 +11,8 @@ namespace Walt.Framework.Quartz.Host
         public bool IsClear{get;set;}
 
         public bool IsSlave{get;set;}
+
+        public int CustomerRecordCountForTest{get;set;}
     }
 }
 

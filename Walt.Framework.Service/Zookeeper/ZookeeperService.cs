@@ -12,6 +12,8 @@ using System.Threading;
 using static org.apache.zookeeper.Watcher.Event;
 using Newtonsoft.Json;
 using System.Collections.Concurrent;
+using static org.apache.zookeeper.ZooDefs;
+using static org.apache.zookeeper.KeeperException;
 
 namespace  Walt.Framework.Service.Zookeeper
 {
@@ -39,24 +41,44 @@ namespace  Walt.Framework.Service.Zookeeper
             _tempNode=tempNode;
         }
 
-       public override Task process(WatchedEvent @event)
-       {
-           _logger.LogDebug("{0}节点下子节点发生改变，激发监视方法。",_path);
-            var childList=_zookeeperService.GetChildrenAsync(_path,null,true).Result;
-            if(childList==null||childList.Children==null||childList.Children.Count<1)
-                   {
-                        _logger.LogDebug("获取子序列失败，计数为零.path:{0}",_path);
-                        return Task.FromResult(0);
-                   }
-                   var top=childList.Children.OrderBy(or=>or).First();
-                   if(_path+"/"+top==_tempNode)
-                   {
-                        _logger.LogDebug("释放阻塞");
+        public override Task process(WatchedEvent @event)
+        {
+            string path = @event.getPath();
+            var type = @event.get_Type();
+            try
+            {
+
+                if (type == EventType.NodeDeleted)
+                {
+                    var childList = _zookeeperService.GetChildrenAsync(_path, null, true).Result;
+                    if (childList == null || childList.Children == null || childList.Children.Count < 1)
+                    {
+                        _logger.LogInformation("获取子序列失败，计数为零.path:{0}", _path);
+                        return Task.FromResult(true);
+                    }
+                    var top = childList.Children.OrderBy(or => or).First();
+                    _logger.LogInformation("{0}节点发生改变，激发监视方法。", _path + "/" + top);
+                    if (_path + "/" + top == _tempNode)
+                    {
+                        _logger.LogInformation("释放阻塞");
                         _autoResetEvent.Set();
-                   }
-           
-            return Task.FromResult(0);
-       }
+                        return Task.FromResult(true);
+                    }
+                     _zookeeperService.SetWatcher(_path + "/" + top
+                    , new WaitLockWatch(_autoResetEvent, _zookeeperService, _logger, path, _tempNode)).GetAwaiter().GetResult();
+                }
+            }
+            catch(KeeperException kep)
+            {
+                 _logger.LogError(0,kep,"{0}节点发生改变，激发监视方法。但是出现错误", path);
+                 throw kep;
+            }
+            catch (Exception ep)
+            {
+                _logger.LogError(0,ep,"{0}节点发生改变，激发监视方法。但是出现错误", path);
+            }
+            return Task.FromResult(true);
+        }
     }
 
 
@@ -74,11 +96,11 @@ namespace  Walt.Framework.Service.Zookeeper
 
        public override Task process(WatchedEvent @event)
        {
-           _logger.LogDebug("watch激发,回掉状态：{0}",@event.getState().ToString());
+           _logger.LogInformation("watch激发,回掉状态：{0}",@event.getState().ToString());
             if(@event.getState()== KeeperState.SyncConnected
             ||@event.getState()== KeeperState.ConnectedReadOnly)
             {
-                _logger.LogDebug("释放阻塞");
+                _logger.LogInformation("释放阻塞");
                 _autoResetEvent.Set();
             }
             return Task.FromResult(0);
@@ -87,9 +109,6 @@ namespace  Walt.Framework.Service.Zookeeper
 
     public class ZookeeperService : IZookeeperService
     {
-
-        public List<string> requestLockSequence=new List<string>();
-        private object _lock=new object();
         private ZookeeperOptions _zookeeperOptions;
         private ZooKeeper _zookeeper;
 
@@ -110,11 +129,11 @@ namespace  Walt.Framework.Service.Zookeeper
             LoggerFac=loggerFac;
             _logger=LoggerFac.CreateLogger<ZookeeperService>();
             _zookeeperOptions=zookeeperOptions.CurrentValue; 
-            _logger.LogDebug("配置参数：{0}",JsonConvert.SerializeObject(_zookeeperOptions));
+            _logger.LogInformation("配置参数：{0}",JsonConvert.SerializeObject(_zookeeperOptions));
              zookeeperOptions.OnChange((zookopt,s)=>{
                 _zookeeperOptions=zookopt; 
             });
-            _logger.LogDebug("开始连接");
+            _logger.LogInformation("开始连接");
             Conn(_zookeeperOptions); 
         }
 
@@ -149,7 +168,7 @@ namespace  Walt.Framework.Service.Zookeeper
             }
              if(_zookeeper.getState()==States.CONNECTING)
             {
-                _logger.LogDebug("当前状态：CONNECTING。阻塞等待");
+                _logger.LogInformation("当前状态：CONNECTING。阻塞等待");
                 autoResetEvent[0].WaitOne();
             }
         }
@@ -159,7 +178,7 @@ namespace  Walt.Framework.Service.Zookeeper
             ReConn();
             if(string.IsNullOrEmpty(path)||!path.StartsWith('/'))
             {
-                _logger.LogDebug("path路径非法，参数：path：{0}",path);
+                _logger.LogInformation("path路径非法，参数：path：{0}",path);
                 return null;
             }
             byte[] dat=new byte[0];
@@ -169,47 +188,42 @@ namespace  Walt.Framework.Service.Zookeeper
             }
             if(createMode==null)
             {
-                 _logger.LogDebug("createMode为null,默认使用CreateMode.PERSISTENT");
+                 _logger.LogInformation("createMode为null,默认使用CreateMode.PERSISTENT");
                 createMode=CreateMode.PERSISTENT;
             }
             return _zookeeper.createAsync(path,dat,aclList,createMode);
         }
 
-        public Task<DataResult> GetDataAsync(string path,Watcher watcher,bool isSync)
+        public async Task<DataResult> GetDataAsync(string path,Watcher watcher,bool isSync)
         {
             ReConn();
-            if(_zookeeper.existsAsync(path).Result==null )
+            if(await _zookeeper.existsAsync(path)==null )
             {
-                _logger.LogDebug("path不存在");
+                _logger.LogInformation("path不存在");
                 return null;
             }
-            if(isSync)
+            if (isSync)
             {
-                 _logger.LogDebug("即将进行同步。"); 
-                 var task=Task.Run(async ()=>{
-                     try
-                     {
-                         await _zookeeper.sync(path);  
-                    }
-                    catch(Exception ep)
-                    {
-                       _logger.LogError("同步失败。",ep);
-                       return;  
-                    }
-                 }); 
-                task.Wait();
+                _logger.LogInformation("即将进行同步。");
+                try
+                {
+                   await  _zookeeper.sync(path);
+                    _logger.LogInformation("同步成功");
+                }
+                catch (Exception ep)
+                {
+                    _logger.LogError("同步失败。", ep);
+                }
             }
-           
-
-            return _zookeeper.getDataAsync(path,watcher);
+            return await _zookeeper.getDataAsync(path,watcher);
         }
 
-         public Task<Stat> SetDataAsync(string path,string data,bool isSync)
+         public async Task<Stat> SetDataAsync(string path,string data,bool isSync)
         {
             ReConn();
-            if(_zookeeper.existsAsync(path).Result==null )
+            if(await _zookeeper.existsAsync(path)==null )
             {
-                 _logger.LogDebug("path不存在");
+                 _logger.LogInformation("path不存在");
                 return null;
             }
             byte[] dat=new byte[0];
@@ -217,151 +231,180 @@ namespace  Walt.Framework.Service.Zookeeper
             { 
                 dat=System.Text.Encoding.Default.GetBytes(data);
             }
-            return _zookeeper.setDataAsync(path,dat);
+            return await _zookeeper.setDataAsync(path,dat);
         }
 
-         public async Task<ChildrenResult> GetChildrenAsync(string path,Watcher watcher,bool isSync) 
-         {
-             ReConn();
-              if(_zookeeper.existsAsync(path).Result==null )
+        public async Task<ChildrenResult> GetChildrenAsync(string path, Watcher watcher, bool isSync)
+        {
+            ReConn();
+            if (await _zookeeper.existsAsync(path) == null)
             {
-                 _logger.LogDebug("path不存在");
+                _logger.LogInformation("path不存在");
                 return null;
             }
-             if(isSync)
+            if (isSync)
             {
-                 _logger.LogDebug("即将进行同步。");
-                 var task=Task.Run(async  ()=>{
-                     try
-                     {
-                        _logger.LogDebug("开始同步");
-                        await _zookeeper.sync(path);  
-                      }
-                      catch(Exception ep)
-                      {
-                          _logger.LogError("同步失败。",ep);
-                          return;
-                      }
-                 });
-                task.Wait();
-            }
-             return await _zookeeper.getChildrenAsync(path,watcher);
-         }
-
-         public void DeleteNode(string path,String tempNode)
-         {
-             if(!string.IsNullOrEmpty(tempNode))
-             {
-                requestLockSequence.Remove(tempNode); 
-             }
-             ReConn();
-              if(_zookeeper.existsAsync(path).Result==null )
-            {
-                 _logger.LogDebug("path不存在");
-                return;
-            }
-            var  task=Task.Run(async ()=>{
+                _logger.LogInformation("即将进行同步。");
                 try
                 {
-                 _logger.LogDebug("删除node：{0}",path);
-                  await _zookeeper.deleteAsync(path);
+                    _logger.LogInformation("开始同步");
+                    await _zookeeper.sync(path);
+                    _logger.LogInformation("同步成功");
                 }
-                catch(Exception ep)
+                catch (Exception ep)
                 {
-                    _logger.LogError("删除失败",ep);
-                    return;
+                    _logger.LogError("同步失败。", ep);
                 }
-            });
-            task.Wait();
-            var sequencePath=requestLockSequence.Where(w=>path==w).FirstOrDefault();
-            if(sequencePath!=null)
-            {
-                requestLockSequence.Remove(sequencePath);
             }
-         }
+            return await _zookeeper.getChildrenAsync(path, watcher);
+        }
+
+        public async void DeleteNode(string path,string tempNode)
+         {
+             ReConn();
+              if(await _zookeeper.existsAsync(path)==null )
+            {
+                 _logger.LogDebug("删除path：path不存在");
+                return;
+            }
+            try
+            {
+                _logger.LogDebug("删除node：{0}", path);
+                await _zookeeper.deleteAsync(path);
+            }
+            catch (Exception ep)
+            {
+                _logger.LogError("删除失败", ep);
+                return;
+            }
+        }
+
+        public async Task<bool> SetWatcher(string path,Watcher watcher)
+        {
+            ReConn();
+             if(await _zookeeper.existsAsync(path)==null )
+            {
+                 _logger.LogDebug("判断path是否存在：path不存在");
+                return false;
+            }
+             try
+            {
+                _logger.LogDebug("设置监控：{0}", path);
+                await _zookeeper.getDataAsync(path,watcher);
+                return true;
+            }
+            catch (Exception ep)
+            {
+                _logger.LogError("设置监控错误", ep);
+                return false;
+            }
+        }
 
          public  string GetDataByLockNode(string path,string sequenceName,List<ACL> aclList,out string tempNodeOut)
          {
              _logger.LogInformation("获取分布式锁开始。");
-             ReConn();
              string tempNode=string.Empty;
              tempNodeOut=string.Empty;
-
-              if(_zookeeper.existsAsync(path).Result==null )
-            {
-                 _logger.LogDebug("path不存在");
-                return null;
-            }
-
-            
             try
             {
-                _logger.LogDebug("开始锁定语句块");
-                lock(_lock)
+
+                ReConn();
+                if (_zookeeper.existsAsync(path).Result == null)
                 {
-                     _logger.LogDebug("锁定，访问requestLockSequence的代码应该同步。");
-                    tempNode=requestLockSequence
-                    .Where(w=>w.StartsWith(path+"/"+sequenceName)).FirstOrDefault();
-                   
-                    if(tempNode==null)
-                    {
-                        tempNode=CreateZNode(path+"/"+sequenceName,"",CreateMode.EPHEMERAL_SEQUENTIAL,aclList).Result;
-                        _logger.LogDebug("创建节点：{0}",tempNode);
-                        if(tempNode==null)
-                        {
-                            _logger.LogDebug("创建临时序列节点失败。详细参数:path:{0},data:{1},CreateMode:{2}"
-                            ,path+"/squence","",CreateMode.EPHEMERAL_SEQUENTIAL);
-                            return null;
-                        }
-                         _logger.LogInformation("创建成功，加入requestLockSequence列表。");
-                        requestLockSequence.Add(tempNode);
-                    }
-                    else
-                    {
-                        _logger.LogDebug("已经存在的锁节点，返回null");
-                        return null;
-                    }
+                    _logger.LogDebug("path不存在，创建");
+                    CreateZNode(path, "", CreateMode.PERSISTENT, aclList).GetAwaiter().GetResult();
                 }
 
-                var childList= GetChildrenAsync(path,null,true).Result;
-                   if(childList==null||childList.Children==null||childList.Children.Count<1)
-                   {
-                        _logger.LogDebug("获取子序列失败，计数为零.path:{0}",path);
-                        return null;
-                   }
-                   _logger.LogDebug("获取path:{0}的子节点：{1}",path,Newtonsoft.Json.JsonConvert.SerializeObject(childList.Children));
-                   var top=childList.Children.OrderBy(or=>or).First();
-                   byte[] da=null;
-                   if(path+"/"+top==tempNode)
-                   {
-                       tempNodeOut =tempNode;
-                       da= GetDataAsync(path,null,true).Result.Data;
-                        if(da==null||da.Length<1)
-                        {
-                            return string.Empty;
-                        } 
-                        return System.Text.Encoding.Default.GetString(da);
-                   }
-                   else
-                   {
-                    childList= GetChildrenAsync(path,new WaitLockWatch(autoResetEvent[1],this,_logger,path,tempNode),true).Result;
-                    autoResetEvent[1].WaitOne();
-                   }
-                    _logger.LogDebug("继续执行。");
-                    tempNodeOut =tempNode;
-                    da= GetDataAsync(path,null,true).Result.Data;
-                    if(da==null||da.Length<1)
+
+                tempNode = CreateZNode(path + "/" + sequenceName, "", CreateMode.EPHEMERAL_SEQUENTIAL, aclList).Result;
+                _logger.LogDebug("创建节点：{0}", tempNode);
+                if (tempNode == null)
+                {
+                    _logger.LogDebug("创建临时序列节点失败。详细参数:path:{0},data:{1},CreateMode:{2}"
+                    , path + "/squence", "", CreateMode.EPHEMERAL_SEQUENTIAL);
+                    return null;
+                }
+                _logger.LogInformation("创建成功。");
+
+                //GetChild: //这里防止并发出现错误。
+                var taskGetData=Task.Run(async () =>{
+                    int circleCount = 0;
+                    while (true)
                     {
-                         return string.Empty;
+                        Thread.Sleep(200);
+                        circleCount++;
+                        _logger.LogInformation("循环获取锁。当前循环次数:{0}", circleCount);
+                        try
+                        {
+                            var childList =await GetChildrenAsync(path, null, true);
+                            if (childList == null || childList.Children == null || childList.Children.Count < 1)
+                            {
+                                _logger.LogWarning("获取子序列失败，计数为零.path:{0}", path);
+                                return null;
+                            }
+                            _logger.LogInformation("获取path:{0}的子节点：{1}", path, Newtonsoft.Json.JsonConvert.SerializeObject(childList.Children));
+
+                            var top = childList.Children.OrderBy(or => or).First();
+                            if (path + "/" + top == tempNode)
+                            {
+                                return tempNode;
+                            }
+                        }
+                        catch (Exception ep)
+                        {
+                            _logger.LogError(ep,"循环获取锁出错。");
+                            return null;
+                        }
+                    }
+                });
+                tempNode = taskGetData.GetAwaiter().GetResult();
+                if (!string.IsNullOrEmpty(tempNode))
+                {
+                    byte[] da = null;
+                    tempNodeOut = tempNode;
+                    da = GetDataAsync(path, null, true).Result.Data;
+                    if (da == null || da.Length < 1)
+                    {
+                        return string.Empty;
                     }
                     return System.Text.Encoding.Default.GetString(da);
+                }
+
+                // bool isSet=
+                //     SetWatcher(path + "/" + top,new WaitLockWatch(autoResetEvent[1], this, _logger, path, tempNode)).Result;
+                // if(!isSet)
+                // {
+                //     goto GetChild;
+                // }
+                //autoResetEvent[1].WaitOne();
+                // _logger.LogDebug("继续执行。");
+                // tempNodeOut = tempNode;
+                // da = GetDataAsync(path, null, true).Result.Data;
+                // if (da == null || da.Length < 1)
+                // {
+                //     return string.Empty;
+                // }
+
+                // return System.Text.Encoding.Default.GetString(da);
             }
-            catch(Exception ep)
+            catch(ConnectionLossException cle)
             {
-                 _logger.LogError(ep,"获取同步锁出现错误。");
-                if(!string.IsNullOrEmpty(tempNode))
+                _logger.LogError(cle, "获取同步锁出现错误。连接丢失");
+            }
+            catch(SessionExpiredException sep)
+            {
+                _logger.LogError(sep, "获取同步锁出现错误。连接过期");
+            }
+            catch(KeeperException kep)
+            {
+                _logger.LogError(kep, "获取同步锁出现错误。操作zookeeper出错");
+            }
+            catch (Exception ep)
+            {
+                _logger.LogError(ep, "获取同步锁出现错误。");
+                if (!string.IsNullOrEmpty(tempNode))
                 {
-                    DeleteNode(tempNode,tempNode);  
+                    DeleteNode(tempNode, tempNode);
                 }
             }
             return null;
@@ -369,7 +412,7 @@ namespace  Walt.Framework.Service.Zookeeper
 
          private void ReConn()
          {
-             _logger.LogInformation("检查连接状态");
+             _logger.LogInformation("检查连接状态，status:{0}",_zookeeper.getState());
              if(_zookeeper.getState()==States.CLOSED
              ||_zookeeper.getState()== States.NOT_CONNECTED)
              {
@@ -378,22 +421,17 @@ namespace  Walt.Framework.Service.Zookeeper
              }
          }
 
-         public void Close(string tempNode)
-         {
-             var task=Task.Run(async ()=>{ 
-                 try
-                 {
-                     requestLockSequence.Remove(tempNode); 
-                    await _zookeeper.closeAsync();
-                 }
-                 catch(Exception ep)
-                 {
-                      _logger.LogError("zookeeper关闭失败。",ep);
-                 }
+        public async void Close(string tempNode)
+        {
+            try
+            {
+                await _zookeeper.closeAsync();
+            }
+            catch (Exception ep)
+            {
+                _logger.LogError("zookeeper关闭失败。", ep);
+            }
+        }
 
-             });
-             task.Wait(); 
-         }
- 
     }
 }
