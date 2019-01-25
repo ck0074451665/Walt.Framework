@@ -170,15 +170,17 @@ namespace Walt.Framework.Quartz.Host
                                         }
                                         log.LogDebug("scheduler已经开始");
 
+
+                                        db = Host.Services.GetService<QuartzDbContext>();
+                                        listQuartzTask = db.QuartzTask.Where(w => w.IsDelete == 0
+                                        && w.MachineName == machine && w.InstanceId == QuartzOpt.InsatanceId)
+                                        .ToListAsync().GetAwaiter().GetResult();
+                                        log.LogDebug("从数据库获取task记录,详细信息:{0}", Newtonsoft.Json.JsonConvert.SerializeObject(listQuartzTask));
+                                           
+
                                         foreach (var item in listQuartzTask)
                                         {
-
-                                            db = Host.Services.GetService<QuartzDbContext>();
-                                            listQuartzTask = db.QuartzTask.Where(w => w.IsDelete == 0
-                                            && w.MachineName == machine && w.InstanceId == QuartzOpt.InsatanceId)
-                                            .ToListAsync().GetAwaiter().GetResult();
-                                            log.LogDebug("从数据库获取task记录,详细信息:{0}", Newtonsoft.Json.JsonConvert.SerializeObject(listQuartzTask));
-                                            //加载程序集
+                                             //加载程序集
                                             if (!string.IsNullOrEmpty(item.AssemblyName) && !collAssembly.ContainsKey(item.AssemblyName))
                                             {
                                                 try
@@ -194,6 +196,7 @@ namespace Walt.Framework.Quartz.Host
                                                     continue;
                                                 }
                                             }
+
                                             log.LogDebug("开始检查task：{0}", Newtonsoft.Json.JsonConvert.SerializeObject(item));
                                             var jobKey = new JobKey(item.TaskName, item.GroupName);
                                             var triggerKey = new TriggerKey(item.TaskName, item.GroupName);
@@ -249,7 +252,7 @@ namespace Walt.Framework.Quartz.Host
                                                 
                                                 if (triggerListener == null)
                                                 {
-                                                    triggerListener = new TriggerUpdateListens();
+                                                    triggerListener = new TriggerUpdateListens("trigger"+item.TaskName);
                                                     IMatcher<TriggerKey> triggermatcher = KeyMatcher<TriggerKey>.KeyEquals(triggerKey);
                                                     scheduler.ListenerManager.AddTriggerListener(triggerListener, triggermatcher);
                                                 }
@@ -257,7 +260,7 @@ namespace Walt.Framework.Quartz.Host
                                                 var jobListener = scheduler.ListenerManager.GetJobListener("jobupdateListens");
                                                 if (jobListener == null)
                                                 {
-                                                    IJobListener jobUpdateListener = new JobUpdateListens();
+                                                    IJobListener jobUpdateListener = new JobUpdateListens("job"+item.TaskName);
                                                     IMatcher<JobKey> jobmatcher = KeyMatcher<JobKey>.KeyEquals(jobKey);
                                                     scheduler.ListenerManager.AddJobListener(jobUpdateListener, jobmatcher);
                                                 }
@@ -312,12 +315,12 @@ namespace Walt.Framework.Quartz.Host
                                                         .Build();
                                                     scheduler.ScheduleJob(job, trigger).GetAwaiter().GetResult();
                                                     log.LogInformation("添加成功，type:{0}",className);
-                                                    ITriggerListener triggerListener = new TriggerUpdateListens();
+                                                    ITriggerListener triggerListener = new TriggerUpdateListens("trigger"+item.TaskName);
                                                     IMatcher<TriggerKey> triggermatcher = KeyMatcher<TriggerKey>.KeyEquals(trigger.Key);
                                                     scheduler.ListenerManager.AddTriggerListener(triggerListener, triggermatcher);
 
 
-                                                    IJobListener jobUpdateListener = new JobUpdateListens();
+                                                    IJobListener jobUpdateListener = new JobUpdateListens("job"+item.TaskName);
                                                     IMatcher<JobKey> jobmatcher = KeyMatcher<JobKey>.KeyEquals(job.Key);
                                                     scheduler.ListenerManager.AddJobListener(jobUpdateListener, jobmatcher);
                                                 }

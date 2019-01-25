@@ -17,7 +17,12 @@ namespace Walt.Framework.Quartz.Host
 
     public class TriggerUpdateListens : ITriggerListener
     {
-        public string Name => "triggerUpdate";
+        public string Name { get; set; }
+
+        public TriggerUpdateListens(string name)
+        {
+            Name = name;
+        }
 
         private bool VoteJob{ get; set;}
 
@@ -47,23 +52,24 @@ namespace Walt.Framework.Quartz.Host
                         string currentTempNodeName = string.Empty;
                         string fullPath = "/lock/"+ context.JobDetail.Key.Name + context.JobDetail.Key.Group;
                         int flag = 0;
-                    Repeat:
+                    //Repeat:
                         string jsonData = zookeeper.GetDataByLockNode(fullPath, "getlock"
                         , ZooDefs.Ids.OPEN_ACL_UNSAFE, out currentTempNodeName);
-                        if(jsonData==null)
+                        if(string.IsNullOrEmpty(currentTempNodeName))
                         {
                             _logger.LogError("获取锁失败。节点：{0},锁前缀：{1},重试：{2}",fullPath,"getlock",flag);
-                            if(flag<=2)
-                            {
-                                flag = flag + 1;
-                                goto Repeat;
-                            }
+                            // if(flag<=2)
+                            // {
+                            //     flag = flag + 1;
+                            //     goto Repeat;
+                            // }
                             VoteJob = true;
+                             _logger.LogError("获取分片失败，取消job执行，等待下次。");
+                            return Task.FromResult(false);
                             //context.Scheduler.Interrupt(context.JobDetail.Key);
                         }
+
                         QuartzDbContext db = Program.Host.Services.GetService<QuartzDbContext>();
-
-
                          var item = db.QuartzTask.Where(w => w.IsDelete == 0
                         && w.TaskName == context.JobDetail.Key.Name
                         && w.GroupName == context.JobDetail.Key.Group
@@ -76,7 +82,7 @@ namespace Walt.Framework.Quartz.Host
                         }
                         string distributeFlag = item.MachineName + item.InstanceId;
                         List<DistributingData> distriData = new List<DistributingData>();
-                        DistributingData currentDistriEntity = null;
+                        DistributingData currentDistriEntity = new DistributingData();
                         if (string.IsNullOrEmpty(jsonData))
                         {
                             currentDistriEntity= new DistributingData
@@ -131,7 +137,7 @@ namespace Walt.Framework.Quartz.Host
 
                         zookeeper.SetDataAsync(fullPath
                             , resultData, false).GetAwaiter().GetResult();
-                        zookeeper.DeleteNode(currentTempNodeName, currentTempNodeName);
+                        zookeeper.DeleteNode(currentTempNodeName);
                         _logger.LogInformation("分片执行：{0}",resultData);
                     }
                 }

@@ -18,65 +18,28 @@ using static org.apache.zookeeper.KeeperException;
 namespace  Walt.Framework.Service.Zookeeper
 {
 
-    internal class  WaitLockWatch:Watcher
+    internal class WaitLockWatch : Watcher
     {
         private AutoResetEvent _autoResetEvent;
+
+        private ManualResetEvent _mutex;
         private ILogger _logger;
 
         private string _path;
 
-        private ZookeeperService _zookeeperService;
-
-        public string _tempNode;
-
         public WaitLockWatch(AutoResetEvent autoResetEvent
-        ,ZookeeperService zookeeperService
-        ,ILogger logger,string path
-        ,string tempNode)
+        , ILogger logger, string path
+        , ManualResetEvent mutex)
         {
-            _autoResetEvent=autoResetEvent;
-            _zookeeperService=zookeeperService;
-            _logger=logger;
-            _path=path;
-            _tempNode=tempNode;
+            _autoResetEvent = autoResetEvent;
+            _logger = logger;
+            _path = path;
+            _mutex = mutex;
         }
 
         public override Task process(WatchedEvent @event)
         {
-            string path = @event.getPath();
-            var type = @event.get_Type();
-            try
-            {
-
-                if (type == EventType.NodeDeleted)
-                {
-                    var childList = _zookeeperService.GetChildrenAsync(_path, null, true).Result;
-                    if (childList == null || childList.Children == null || childList.Children.Count < 1)
-                    {
-                        _logger.LogInformation("获取子序列失败，计数为零.path:{0}", _path);
-                        return Task.FromResult(true);
-                    }
-                    var top = childList.Children.OrderBy(or => or).First();
-                    _logger.LogInformation("{0}节点发生改变，激发监视方法。", _path + "/" + top);
-                    if (_path + "/" + top == _tempNode)
-                    {
-                        _logger.LogInformation("释放阻塞");
-                        _autoResetEvent.Set();
-                        return Task.FromResult(true);
-                    }
-                     _zookeeperService.SetWatcher(_path + "/" + top
-                    , new WaitLockWatch(_autoResetEvent, _zookeeperService, _logger, path, _tempNode)).GetAwaiter().GetResult();
-                }
-            }
-            catch(KeeperException kep)
-            {
-                 _logger.LogError(0,kep,"{0}节点发生改变，激发监视方法。但是出现错误", path);
-                 throw kep;
-            }
-            catch (Exception ep)
-            {
-                _logger.LogError(0,ep,"{0}节点发生改变，激发监视方法。但是出现错误", path);
-            }
+             _mutex.Set();
             return Task.FromResult(true);
         }
     }
@@ -87,11 +50,15 @@ namespace  Walt.Framework.Service.Zookeeper
         private AutoResetEvent _autoResetEvent;
         private ILogger _logger;
 
+        private ManualResetEvent _mutex;
+
         public WaitConnWatch(AutoResetEvent autoResetEvent
-        ,ILogger logger)
+        ,ILogger logger
+        ,ManualResetEvent mutex)
         {
             _autoResetEvent=autoResetEvent;
             _logger=logger;
+            _mutex = mutex;
         }
 
        public override Task process(WatchedEvent @event)
@@ -100,8 +67,13 @@ namespace  Walt.Framework.Service.Zookeeper
             if(@event.getState()== KeeperState.SyncConnected
             ||@event.getState()== KeeperState.ConnectedReadOnly)
             {
-                _logger.LogInformation("释放阻塞");
+                _logger.LogInformation("释放连接阻塞");
                 _autoResetEvent.Set();
+            }
+            else
+            {
+                _logger.LogInformation("连接断开，释放分布式锁阻塞");
+                _mutex.Set();
             }
             return Task.FromResult(0);
        }
@@ -120,9 +92,13 @@ namespace  Walt.Framework.Service.Zookeeper
 
          private ILogger _logger;
 
-         AutoResetEvent[] autoResetEvent=new AutoResetEvent[2]
-         {new AutoResetEvent(false),new AutoResetEvent(false)};
+        internal Thread CurrThread{ get; }
 
+
+
+        AutoResetEvent[] autoResetEvent=new AutoResetEvent[2]
+         {new AutoResetEvent(false),new AutoResetEvent(false)};
+        ManualResetEvent _manualReset = new ManualResetEvent(false);
         public ZookeeperService(IOptionsMonitor<ZookeeperOptions>  zookeeperOptions
         ,ILoggerFactory loggerFac)
         {
@@ -135,6 +111,7 @@ namespace  Walt.Framework.Service.Zookeeper
             });
             _logger.LogInformation("开始连接");
             Conn(_zookeeperOptions); 
+            CurrThread = System.Threading.Thread.CurrentThread;
         }
 
        
@@ -142,7 +119,7 @@ namespace  Walt.Framework.Service.Zookeeper
         private void Conn(ZookeeperOptions zookeeperOptions)
         {
             bool isReadOnly=default(Boolean);
-            Wathcer=new WaitConnWatch(autoResetEvent[0],_logger);
+            Wathcer=new WaitConnWatch(autoResetEvent[0],_logger,_manualReset);
             if(isReadOnly!=zookeeperOptions.IsReadOnly)
             {
                 isReadOnly=zookeeperOptions.IsReadOnly;
@@ -192,6 +169,19 @@ namespace  Walt.Framework.Service.Zookeeper
                 createMode=CreateMode.PERSISTENT;
             }
             return _zookeeper.createAsync(path,dat,aclList,createMode);
+        }
+
+        public async void Sync(string path)
+        {
+            try
+            {
+                _logger.LogInformation("同步成功");
+                 await _zookeeper.sync(path);
+            }
+            catch (Exception ep)
+            {
+                _logger.LogError("同步失败。", ep);
+            }
         }
 
         public async Task<DataResult> GetDataAsync(string path,Watcher watcher,bool isSync)
@@ -259,7 +249,7 @@ namespace  Walt.Framework.Service.Zookeeper
             return await _zookeeper.getChildrenAsync(path, watcher);
         }
 
-        public async void DeleteNode(string path,string tempNode)
+        public async Task DeleteNode(string path)
          {
              ReConn();
               if(await _zookeeper.existsAsync(path)==null )
@@ -282,7 +272,8 @@ namespace  Walt.Framework.Service.Zookeeper
         public async Task<bool> SetWatcher(string path,Watcher watcher)
         {
             ReConn();
-             if(await _zookeeper.existsAsync(path)==null )
+            var stat = await _zookeeper.existsAsync(path);
+            if(stat==null )
             {
                  _logger.LogDebug("判断path是否存在：path不存在");
                 return false;
@@ -326,66 +317,125 @@ namespace  Walt.Framework.Service.Zookeeper
                 }
                 _logger.LogInformation("创建成功。");
 
-                //GetChild: //这里防止并发出现错误。
-                var taskGetData=Task.Run(async () =>{
-                    int circleCount = 0;
-                    while (true)
-                    {
-                        Thread.Sleep(200);
-                        circleCount++;
-                        _logger.LogInformation("循环获取锁。当前循环次数:{0}", circleCount);
-                        try
-                        {
-                            var childList =await GetChildrenAsync(path, null, true);
-                            if (childList == null || childList.Children == null || childList.Children.Count < 1)
-                            {
-                                _logger.LogWarning("获取子序列失败，计数为零.path:{0}", path);
-                                return null;
-                            }
-                            _logger.LogInformation("获取path:{0}的子节点：{1}", path, Newtonsoft.Json.JsonConvert.SerializeObject(childList.Children));
 
-                            var top = childList.Children.OrderBy(or => or).First();
-                            if (path + "/" + top == tempNode)
-                            {
-                                return tempNode;
-                            }
-                        }
-                        catch (Exception ep)
-                        {
-                            _logger.LogError(ep,"循环获取锁出错。");
-                            return null;
-                        }
-                    }
-                });
-                tempNode = taskGetData.GetAwaiter().GetResult();
-                if (!string.IsNullOrEmpty(tempNode))
+                // var taskGetData=Task.Run(async () =>{
+                //     int circleCount = 0;
+                //     while (true)
+                //     {
+                //         Thread.Sleep(200);
+                //         circleCount++;
+                //         _logger.LogInformation("循环获取锁。当前循环次数:{0}", circleCount);
+                //         try
+                //         {
+                //             var childList =await GetChildrenAsync(path, null, true);
+                //             if (childList == null || childList.Children == null || childList.Children.Count < 1)
+                //             {
+                //                 _logger.LogWarning("获取子序列失败，计数为零.path:{0}", path);
+                //                 return null;
+                //             }
+                //             _logger.LogInformation("获取path:{0}的子节点：{1}", path, Newtonsoft.Json.JsonConvert.SerializeObject(childList.Children));
+
+                //             var top = childList.Children.OrderBy(or => or).First();
+                //             if (path + "/" + top == tempNode)
+                //             {
+                //                 return tempNode;
+                //             }
+                //         }
+                //         catch (Exception ep)
+                //         {
+                //             _logger.LogError(ep,"循环获取锁出错。");
+                //             return null;
+                //         }
+                //     }
+                // });
+                // tempNode = taskGetData.GetAwaiter().GetResult();
+                // if (!string.IsNullOrEmpty(tempNode))
+                // {
+                //     byte[] da = null;
+                //     tempNodeOut = tempNode;
+                //     da = GetDataAsync(path, null, true).Result.Data;
+                //     if (da == null || da.Length < 1)
+                //     {
+                //         return string.Empty;
+                //     }
+                //     return System.Text.Encoding.Default.GetString(da);
+                // }
+                int clycleCount = 0;
+            GetChild: //这里防止并发出现错误。
+                clycleCount++;
+                var childList = GetChildrenAsync(path, null, true).GetAwaiter().GetResult();
+                if (childList == null || childList.Children == null || childList.Children.Count < 1)
                 {
-                    byte[] da = null;
+                    _logger.LogWarning("获取子序列失败，计数为零.path:{0}", path);
+                    return null;
+                }
+                _logger.LogInformation("获取path:{0}的子节点：{1}", path, Newtonsoft.Json.JsonConvert.SerializeObject(childList.Children));
+
+                var top = childList.Children.OrderBy(or => or).First();
+                if (path + "/" + top == tempNode)
+                {
                     tempNodeOut = tempNode;
-                    da = GetDataAsync(path, null, true).Result.Data;
+                    var da = GetDataAsync(path, null, true).Result.Data;
                     if (da == null || da.Length < 1)
                     {
                         return string.Empty;
                     }
                     return System.Text.Encoding.Default.GetString(da);
                 }
-
                 // bool isSet=
-                //     SetWatcher(path + "/" + top,new WaitLockWatch(autoResetEvent[1], this, _logger, path, tempNode)).Result;
+                //     SetWatcher(path + "/" + top,).Result;
                 // if(!isSet)
                 // {
                 //     goto GetChild;
                 // }
-                //autoResetEvent[1].WaitOne();
-                // _logger.LogDebug("继续执行。");
-                // tempNodeOut = tempNode;
-                // da = GetDataAsync(path, null, true).Result.Data;
-                // if (da == null || da.Length < 1)
-                // {
-                //     return string.Empty;
-                // }
+                bool isSet= SetWatcher(path + "/" + top,new WaitLockWatch(autoResetEvent[1], _logger, path,_manualReset)).Result;
+                if(!isSet)
+                {
+                    _logger.LogWarning("没有设置上watcher，需要重新运行一遍。");
+                    goto GetChild;
+                }
+                _manualReset.WaitOne(15000);
+                 childList = GetChildrenAsync(path, null, true).GetAwaiter().GetResult();
+                if (childList == null || childList.Children == null || childList.Children.Count < 1)
+                {
+                    _logger.LogWarning("再次获取子序列失败，计数为零.path:{0}", path);
+                    return null;
+                }
+                _logger.LogInformation("再次获取path:{0}的子节点：{1}", path, Newtonsoft.Json.JsonConvert.SerializeObject(childList.Children));
+                top = childList.Children.OrderBy(or => or).First();
+                if (path + "/" + top == tempNode)
+                {
+                    _logger.LogDebug("节点获取到锁权限。");
+                    tempNodeOut = tempNode;
+                    var da = GetDataAsync(path, null, true).Result.Data;
+                    if (da == null || da.Length < 1)
+                    {
+                        return string.Empty;
+                    }
+                    return System.Text.Encoding.Default.GetString(da);
+                }
+                else
+                {
+                    _logger.LogDebug("没有获取到锁权限，进行循环。循环第：{0}次",clycleCount);
+                    Thread.Sleep(1000);
+                    goto GetChild;
+                    // Sync(path);
+                    
+                    //DeleteNode(tempNode).GetAwaiter().GetResult();
+                    // DeleteNode(tempNode).GetAwaiter().GetResult();
+                    //  _logger.LogError("没有获取到锁，Watcher出现问题，请查看日志。");
+                    // if (_zookeeper.existsAsync(tempNode).Result== null)
+                    // {
+                    //     _logger.LogWarning("tempNode:{0}存在,但是没有获取到锁，在等待的时候，被线程检查程序释放了阻塞，属于误伤"
+                    //     ,tempNode);
 
-                // return System.Text.Encoding.Default.GetString(da);
+                    // }
+                    // else
+                    // {
+                    //     _logger.LogError("没有获取到锁，Watcher出现问题，请查看日志。");
+                    // }
+                }
+
             }
             catch(ConnectionLossException cle)
             {
@@ -404,9 +454,15 @@ namespace  Walt.Framework.Service.Zookeeper
                 _logger.LogError(ep, "获取同步锁出现错误。");
                 if (!string.IsNullOrEmpty(tempNode))
                 {
-                    DeleteNode(tempNode, tempNode);
+                    try{
+                    DeleteNode(tempNode).GetAwaiter().GetResult();
+                    }catch(Exception)
+                    {
+                        
+                    }
                 }
             }
+
             return null;
          }
 

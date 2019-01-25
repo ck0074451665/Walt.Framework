@@ -16,7 +16,7 @@ namespace Walt.Framework.Service.Zookeeper
 
         Task<ChildrenResult> GetChildrenAsync(string path,Watcher watcher,bool isSync) ;
 
-        void DeleteNode(string path,string tempNode);
+        Task DeleteNode(string path);
 
         string GetDataByLockNode(string path,string sequenceName,List<ACL> aclList,out string tempNode);
 

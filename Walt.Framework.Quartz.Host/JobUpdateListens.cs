@@ -14,7 +14,13 @@ namespace Walt.Framework.Quartz.Host
 
     public class JobUpdateListens : IJobListener
     { 
-        public string Name => "jobupdateListens";
+        public string Name { get; set; }
+
+
+        public JobUpdateListens(string name)
+        {
+            Name = name;
+        }
 
         public Task JobExecutionVetoed(IJobExecutionContext context, CancellationToken cancellationToken = default(CancellationToken))
         {

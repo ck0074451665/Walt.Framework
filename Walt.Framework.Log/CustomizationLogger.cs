@@ -171,7 +171,7 @@ namespace Walt.Framework.Log
             ,"test",mess);
             if(task==null) throw new NullReferenceException("方法没有返回有效的task");
 
-            System.Diagnostics.Debug.WriteLine("即将执行kafka日志Producer");
+            //System.Diagnostics.Debug.WriteLine("即将执行kafka日志Producer");
             var result= task.Result;
            //Console.WriteLine(_prix+"--"+ logBuilder.ToString());
 
