@@ -2,4 +2,4 @@ ZK.*.log
 bin
 obj
 .vscode
-
+.vs
