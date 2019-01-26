@@ -1,2 +1,0 @@
-[2019-01-24 17:25:33.109 GMT 	WARNING 	ClientCnxn 	Client session timed out, have not heard from server in 42607ms for sessionid 0x100102d5cb10018] 	
-[2019-01-24 17:26:48.709 GMT 	WARNING 	ClientCnxn 	Unable to reconnect to ZooKeeper service, session 0x100102d5cb10018 has expired] 	
