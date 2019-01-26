@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,23 @@ using Walt.Framework.Service.Kafka;
 
 namespace Walt.Framework.Log
 {
+
+    public class  EntityMessages
+    {
+        public string Id{ get; set; }
+
+        public string MachineName{ get; set; }
+
+        public DateTime DateTime{ get; set; }
+
+        public string OtherFlag{ get; set; }
+
+
+
+        public LogLevel LogLevel{ get; set; }
+
+        public string Message{ get; set; }
+    }
   
     public class CustomizationLogger : ILogger
     {
@@ -21,7 +39,8 @@ namespace Walt.Framework.Log
  
         private Func<string, LogLevel, bool> _filter;
 
-        
+        private BlockingCollection<EntityMessages> blockColl =
+        new BlockingCollection<EntityMessages>();
 
         [ThreadStatic]
         private static StringBuilder _logBuilder;
@@ -44,6 +63,25 @@ namespace Walt.Framework.Log
             : this(name, filter, includeScopes ? new LoggerExternalScopeProvider() : null
            ,prix,logStoreTopic,kafkaService)
         {
+            Task.Run(()=>{
+                try
+                {
+                    foreach (var entityMess in blockColl.GetConsumingEnumerable())
+                    {
+                        var task = _kafkaService.Producer(_logStoreTopic
+                        , entityMessage.Id, entityMessage);
+                        if (task == null) throw new NullReferenceException("方法没有返回有效的task");
+
+                        //System.Diagnostics.Debug.WriteLine("即将执行kafka日志Producer");
+                        var result = task.Result;
+                        //Console.WriteLine(_prix+"--"+ logBuilder.ToString());
+                    }
+                }
+                catch(Exception ep)
+                {
+                    blockColl.CompleteAdding();
+                }
+            });
         }
 
         
@@ -66,6 +104,24 @@ namespace Walt.Framework.Log
             _logStoreTopic=logStoreTopic;
         }
 
+        ///添加
+        private AddCollMess(EntityMessages message)
+        {
+            if (!blockColl.IsAddingCompleted)
+            {
+                blockColl.Add(entityMessage);
+            }
+            else
+            {
+                var task = _kafkaService.Producer(_logStoreTopic
+                      , entityMessage.Id, entityMessage);
+                if (task == null) throw new NullReferenceException("方法没有返回有效的task");
+
+                //System.Diagnostics.Debug.WriteLine("即将执行kafka日志Producer");
+                var result = task.Result;
+                //Console.WriteLine(_prix+"--"+ logBuilder.ToString());
+            }
+        }
     
 
         public Func<string, LogLevel, bool> Filter
@@ -158,22 +214,17 @@ namespace Walt.Framework.Log
 
             var hasLevel = !string.IsNullOrEmpty(logLevelString);
             // Queue log message
-
-
-            // _queueProcessor.EnqueueMessage(new LogMessageEntry()
-            // {
-            //     Message =_prix+"--"+ logBuilder.ToString(), 
-            //     LevelString = hasLevel ? logLevelString : null
-            // });
-            string machineName="["+Environment.MachineName+"] ";
-            string mess=machineName+_prix+" ["+(hasLevel?logLevelString : null)+"] "+"["+DateTime.Now.ToString("o")+"] "+ logBuilder.ToString();
-            var  task=_kafkaService.Producer(_logStoreTopic
-            ,"test",mess);
-            if(task==null) throw new NullReferenceException("方法没有返回有效的task");
-
-            //System.Diagnostics.Debug.WriteLine("即将执行kafka日志Producer");
-            var result= task.Result;
-           //Console.WriteLine(_prix+"--"+ logBuilder.ToString());
+            string machineName=Environment.MachineName;
+            var entityMessage = new EntityMessages()
+            {
+                Id = Guid.NewGuid.ToString("N"),
+                MachineName = machineName,
+                OtherFlag = _prix,
+                DateTime = DateTime.Now,
+                LogLevel = (hasLevel ? logLevelString : null),
+                Message = logBuilder.ToString()
+            };
+            AddCollMess(entityMessage);
 
             logBuilder.Clear();
             if (logBuilder.Capacity > 1024)

@@ -6,6 +6,11 @@ namespace Walt.Framework.Service.Kafka
 {
     public interface IKafkaService
     {
-     Task<Message> Producer(string topic,string key,string value);
+     Task<Message> Producer<T>(string topic,string key,T t);
+
+
+        void AddProductEvent();
+
+        void AddConsumerEvent(IEnumerable<string> topics);
     }
 }

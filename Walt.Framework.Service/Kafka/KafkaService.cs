@@ -12,6 +12,13 @@ namespace  Walt.Framework.Service.Kafka
         private KafkaOptions _kafkaOptions;
         private Producer _producer;
         private Consumer _consumer;
+
+        public Action GetMessageDele{ get; set; }
+
+        public Action ErrorDele{ get; set; }
+
+        public Action LogDele{ get; set; }
+
         public KafkaService(IOptionsMonitor<KafkaOptions>  kafkaOptions)
         {
             _kafkaOptions=kafkaOptions.CurrentValue; 
@@ -19,7 +26,6 @@ namespace  Walt.Framework.Service.Kafka
                 _kafkaOptions=kafkaOpt; 
                     System.Diagnostics.Debug
                     .WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(kafkaOpt)+"---"+s);
-                    
             });
              _producer=new Producer(_kafkaOptions.Properties);
 
@@ -31,16 +37,55 @@ namespace  Walt.Framework.Service.Kafka
             return System.Text.Encoding.Default.GetBytes(str);
         }
  
-        public  async Task<Message> Producer(string topic,string key,string value)
+        public  async Task<Message> Producer<T>(string topic,string key,T t)
         {  
             if(string.IsNullOrEmpty(topic)
-            ||string.IsNullOrEmpty(value))
+            || t==null)
             {
                 throw new ArgumentNullException("topic或者value不能为null.");
             }
-      
-           var task=  await _producer.ProduceAsync(topic,ConvertToByte(key),ConvertToByte(value)); 
+            string data = Newtonsoft.Json.JsonConvert.SerializeObject(t);
+            var task=  await _producer.ProduceAsync(topic,ConvertToByte(key),ConvertToByte(data)); 
            return task;
+        }
+
+
+        public void AddProductEvent()
+        {
+            _producer.OnError+=new EventHandler<Error>(Error);
+            _producer.OnLog+=new EventHandler<LogMessage>(Log);
+        }
+
+        public void AddConsumerEvent(IEnumerable<string> topics)
+        {
+            _consumer.Subscribe(topics);
+            _consumer.OnMessage += new EventHandler<Message>(GetMessage);
+            _consumer.OnError += new EventHandler<Error>(Error);
+            _consumer.OnLog += new EventHandler<LogMessage>(Log);
+        }
+
+        private void GetMessage(object sender, Message mess)
+        {
+            if(GetMessageDele!=null)
+            {
+                GetMessageDele();
+            }
+        }
+
+        private void Error(object sender, Error mess)
+        {
+            if(ErrorDele!=null)
+            {
+                ErrorDele();
+            }
+        }
+
+        private void Log(object sender, LogMessage mess)
+        {
+            if(LogDele!=null)
+            {
+                LogDele();
+            }
         }
     }
 }
