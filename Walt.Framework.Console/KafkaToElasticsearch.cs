@@ -82,8 +82,7 @@ namespace Walt.Framework.Console
                         EntityMessages entityMess = 
                         Newtonsoft.Json.JsonConvert.DeserializeObject<EntityMessages>(val);
                         await  _elasticsearch.CreateIndexIfNoExists<LogElasticsearch>("mylog"+entityMess.OtherFlag);
-                        // _elasticsearch.CreateMappingIfNoExists<LogElasticsearch>("mylog"+entityMess.OtherFlag
-                        //                 ,"mylog"+entityMess.OtherFlag+"type",null);
+                        
                         var addDocumentResponse = await _elasticsearch.CreateDocument<LogElasticsearch>("mylog" + entityMess.OtherFlag
                                 , new LogElasticsearch()
                                 {
