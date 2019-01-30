@@ -12,16 +12,16 @@
 
   <ItemGroup>
     <PackageReference Include="Confluent.Kafka" Version="0.11.6" />
+    <PackageReference Include="Elasticsearch.Net" Version="6.4.2" />
+    <PackageReference Include="Nest" Version="6.4.2" />
     <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
     <PackageReference Include="StackExchange.Redis" Version="2.0.519" />
 
  
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
-
+    <PackageReference Include="Microsoft.AspNetCore.App" />
  
     <PackageReference Include="ZooKeeperNetEx" Version="3.4.12.1" />
-
- 
     <PackageReference Include="ZooKeeperNetEx.Recipes" Version="3.4.12.1" /> 
   </ItemGroup>
  

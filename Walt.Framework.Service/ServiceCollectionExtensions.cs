@@ -2,6 +2,7 @@ using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Walt.Framework.Service.Elasticsearch;
 using Walt.Framework.Service.Kafka;
 using Walt.Framework.Service.Zookeeper;
 
@@ -48,6 +49,21 @@ namespace Walt.Framework.Service
             services.AddOptions();  
             services.TryAddSingleton<IZookeeperService,ZookeeperService>(); 
             configure(new ZookeeperBuilder(services));
+            return services;
+        }
+
+         public static IServiceCollection AddElasticsearchClient(this IServiceCollection services
+        , Action<IElasticsearchBuilder> configure)
+        {
+            if (services == null)
+            {
+                throw new ArgumentNullException(nameof(services));
+            }
+
+            services.AddOptions();
+            services.TryAddSingleton<IElasticsearchService,ElasticsearchService>(); 
+            configure(new ElasticsearchBuilder(services));
+            
             return services;
         }
     }

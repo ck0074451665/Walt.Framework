@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="MySql.Data" Version="8.0.14" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Walt.Framework.Log\Walt.Framework.Log.csproj" />
+    <ProjectReference Include="..\Walt.Framework.Configuration\Walt.Framework.Configuration.csproj" />
+  </ItemGroup>
+
+</Project>

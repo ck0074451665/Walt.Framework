@@ -66,6 +66,7 @@ namespace Walt.Framework.Quartz.Host
                         {
                             zookeeperBuilder.AddConfiguration(hostContext.Configuration.GetSection("zookeeperService"));
                         });
+                        
                         service.AddDbContext<QuartzDbContext>(option =>
                         option.UseMySQL(hostContext.Configuration.GetConnectionString("QuartzDatabase")), ServiceLifetime.Transient, ServiceLifetime.Transient);
                     })

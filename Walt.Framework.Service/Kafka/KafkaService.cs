@@ -13,11 +13,11 @@ namespace  Walt.Framework.Service.Kafka
         private Producer _producer;
         private Consumer _consumer;
 
-        public Action GetMessageDele{ get; set; }
+        public Action<Message> GetMessageDele{ get; set; }
 
-        public Action ErrorDele{ get; set; }
+        public Action<Error> ErrorDele{ get; set; }
 
-        public Action LogDele{ get; set; }
+        public Action<LogMessage> LogDele{ get; set; }
 
         public KafkaService(IOptionsMonitor<KafkaOptions>  kafkaOptions)
         {
@@ -68,7 +68,7 @@ namespace  Walt.Framework.Service.Kafka
         {
             if(GetMessageDele!=null)
             {
-                GetMessageDele();
+                GetMessageDele(mess);
             }
         }
 
@@ -76,7 +76,7 @@ namespace  Walt.Framework.Service.Kafka
         {
             if(ErrorDele!=null)
             {
-                ErrorDele();
+                ErrorDele(mess);
             }
         }
 
@@ -84,7 +84,7 @@ namespace  Walt.Framework.Service.Kafka
         {
             if(LogDele!=null)
             {
-                LogDele();
+                LogDele(mess);
             }
         }
     }

@@ -35,6 +35,9 @@
 		},
 		{
 			"path": "Walt.Framework.Quartz.Host"
+		},
+		{
+			"path": "Walt.Framework.Console"
 		}
 	],
 	"settings": {

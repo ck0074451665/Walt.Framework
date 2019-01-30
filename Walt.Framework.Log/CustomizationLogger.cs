@@ -24,7 +24,7 @@ namespace Walt.Framework.Log
 
 
 
-        public LogLevel LogLevel{ get; set; }
+        public string LogLevel{ get; set; }
 
         public string Message{ get; set; }
     }
@@ -63,25 +63,7 @@ namespace Walt.Framework.Log
             : this(name, filter, includeScopes ? new LoggerExternalScopeProvider() : null
            ,prix,logStoreTopic,kafkaService)
         {
-            Task.Run(()=>{
-                try
-                {
-                    foreach (var entityMess in blockColl.GetConsumingEnumerable())
-                    {
-                        var task = _kafkaService.Producer(_logStoreTopic
-                        , entityMessage.Id, entityMessage);
-                        if (task == null) throw new NullReferenceException("方法没有返回有效的task");
-
-                        //System.Diagnostics.Debug.WriteLine("即将执行kafka日志Producer");
-                        var result = task.Result;
-                        //Console.WriteLine(_prix+"--"+ logBuilder.ToString());
-                    }
-                }
-                catch(Exception ep)
-                {
-                    blockColl.CompleteAdding();
-                }
-            });
+           
         }
 
         
@@ -102,19 +84,41 @@ namespace Walt.Framework.Log
             ScopeProvider = scopeProvider;
             _prix=prix;
             _logStoreTopic=logStoreTopic;
+
+             Task.Run(()=>{
+                try
+                {
+                    System.Diagnostics.Debug.WriteLine("kafka开始同步日志。");
+                    foreach (var entityMess in blockColl.GetConsumingEnumerable())
+                    {
+                        var task = _kafkaService.Producer(_logStoreTopic
+                        , entityMess.Id, entityMess);
+                        if (task == null) throw new NullReferenceException("方法没有返回有效的task");
+
+                        //System.Diagnostics.Debug.WriteLine("即将执行kafka日志Producer");
+                        var result = task.Result;
+                        //Console.WriteLine(_prix+"--"+ logBuilder.ToString());
+                    }
+                }
+                catch(Exception ep)
+                {
+                    System.Diagnostics.Debug.WriteLine("kafka同步出现问题，详细情况:{0}",ep.ToString());
+                    blockColl.CompleteAdding();
+                }
+            });
         }
 
         ///添加
-        private AddCollMess(EntityMessages message)
+        private void AddCollMess(EntityMessages message)
         {
             if (!blockColl.IsAddingCompleted)
             {
-                blockColl.Add(entityMessage);
+                blockColl.Add(message);
             }
             else
             {
                 var task = _kafkaService.Producer(_logStoreTopic
-                      , entityMessage.Id, entityMessage);
+                      , message.Id, message);
                 if (task == null) throw new NullReferenceException("方法没有返回有效的task");
 
                 //System.Diagnostics.Debug.WriteLine("即将执行kafka日志Producer");
@@ -217,7 +221,7 @@ namespace Walt.Framework.Log
             string machineName=Environment.MachineName;
             var entityMessage = new EntityMessages()
             {
-                Id = Guid.NewGuid.ToString("N"),
+                Id = Guid.NewGuid().ToString("N"),
                 MachineName = machineName,
                 OtherFlag = _prix,
                 DateTime = DateTime.Now,
