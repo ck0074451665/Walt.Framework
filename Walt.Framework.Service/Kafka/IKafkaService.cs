@@ -17,5 +17,7 @@ namespace Walt.Framework.Service.Kafka
         Action<Message> GetMessageDele { get; set; }
         Action<Error> ErrorDele { get; set; }
         Action<LogMessage> LogDele { get; set; }
+
+        Message Poll(int timeoutMilliseconds);
     }
 }

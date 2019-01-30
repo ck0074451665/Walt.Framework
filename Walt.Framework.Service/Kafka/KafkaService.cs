@@ -87,5 +87,12 @@ namespace  Walt.Framework.Service.Kafka
                 LogDele(mess);
             }
         }
+
+        public Message Poll(int timeoutMilliseconds)
+        {
+            Message message =default(Message);
+            _consumer.Consume(out message, timeoutMilliseconds);
+            return message;
+        }
     }
 }

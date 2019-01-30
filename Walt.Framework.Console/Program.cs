@@ -20,6 +20,7 @@ using MySql.Data.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using IApplicationLife =Microsoft.Extensions.Hosting;
+using IApplicationLifetime = Microsoft.Extensions.Hosting.IApplicationLifetime;
 
 namespace Walt.Framework.Console
 {
@@ -50,6 +51,11 @@ namespace Walt.Framework.Console
                     })
                     .ConfigureServices((hostContext, service) =>
                     {
+                        service.Configure<HostOptions>(option =>
+                        {
+                            option.ShutdownTimeout = System.TimeSpan.FromSeconds(10);
+                        });
+
                         service.AddKafka(KafkaBuilder =>
                         {
                             KafkaBuilder.AddConfiguration(hostContext.Configuration.GetSection("KafkaService"));
@@ -65,6 +71,7 @@ namespace Walt.Framework.Console
                     })
                     .Build();
              CancellationTokenSource source = new CancellationTokenSource();
+            CancellationToken token = source.Token;
             var task=Task.Run(async () =>{
                 IConsole console = host.Services.GetService<IConsole>();
                 await console.AsyncExcute(source.Token);
@@ -79,30 +86,38 @@ namespace Walt.Framework.Console
             {
                 while (true)
                 {
-                    ++recordRunCount;
-                    foreach (KeyValuePair<string, Task> item in dictTask)
+                    if (!token.IsCancellationRequested)
                     {
-                        if (item.Value.IsCanceled
-                        || item.Value.IsCompleted
-                        || item.Value.IsCompletedSuccessfully
-                        || item.Value.IsFaulted
-                        || item.Value.Status==TaskStatus.WaitingForActivation)
+                        ++recordRunCount;
+                        foreach (KeyValuePair<string, Task> item in dictTask)
                         {
-                            log.LogWarning("console任务：{0}，参数：{1}，执行异常,task状态：{2}", item.Key, "", item.Value.Status);
-                            if (item.Value.Exception != null)
+                            if (item.Value.IsCanceled
+                            || item.Value.IsCompleted
+                            || item.Value.IsCompletedSuccessfully
+                            || item.Value.IsFaulted)
                             {
-                                log.LogError(item.Value.Exception, "task:{0},参数：{1}，执行错误.", item.Key, "");
-                                //TODO 根据参数更新数据库状态，以便被监控到。
+                                log.LogWarning("console任务：{0}，参数：{1}，执行异常,task状态：{2}", item.Key, "", item.Value.Status);
+                                if (item.Value.Exception != null)
+                                {
+                                    log.LogError(item.Value.Exception, "task:{0},参数：{1}，执行错误.", item.Key, "");
+                                    //TODO 根据参数更新数据库状态，以便被监控到。
+                                }
+                                //更新数据库状态。
                             }
-                            //更新数据库状态。
                         }
                     }
-                    log.LogInformation("循环：{0}次，接下来等待2秒。", recordRunCount);
                     System.Threading.Thread.Sleep(2000);
+                    log.LogInformation("循环：{0}次，接下来等待2秒。", recordRunCount);
                 }
+            },source.Token);
+            
+            IApplicationLifetime appLiftTime = host.Services.GetService<IApplicationLifetime>();
+            appLiftTime.ApplicationStopping.Register(()=>{
+                log.LogInformation("程序停止中。");
+                source.Cancel();
+                log.LogInformation("程序停止完成。");
             });
-            //source.CancelAfter(2000);
-            host.WaitForShutdown();
+            host.RunAsync().GetAwaiter().GetResult();
         }
     }
 }
